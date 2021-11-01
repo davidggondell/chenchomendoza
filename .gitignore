@@ -1,2 +1,2 @@
-chenchoMendoza/node_modules/*
-chenchoMendoza/.vscode/*
+node_modules/*
+.vscode/*
