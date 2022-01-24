@@ -1,0 +1,1 @@
+export const ADD_IMAGE = "project/images/addImage";

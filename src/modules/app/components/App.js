@@ -6,7 +6,6 @@ import Body from './Body';
 import Footer from './Footer';
 
 const App = () => {
-
     return (
         <div>
             <Router>
