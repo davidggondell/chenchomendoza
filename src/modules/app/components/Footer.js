@@ -1,18 +1,13 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { Container, Typography } from '@mui/material';
 
 const Footer = () => (
-
-    <div>
-        <br/>
-        <hr/>
-        <footer>
-            <p className="text-center">
-                <FormattedMessage id="project.app.Footer.text"/>
-            </p>
-        </footer>
-    </div>
-
+    <Container>
+        <Typography>
+            <FormattedMessage id="project.app.Footer.text" />
+        </Typography>
+    </Container>
 );
 
 export default Footer;

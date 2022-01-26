@@ -14,7 +14,6 @@ export const getAllImages = (url) => (dispatch) => {
         console.log(res.items);
         res.items.forEach(image => {
             getDownloadURL(image).then(url => {
-                console.log(url);
                 dispatch(addImage(url));
             });
         });
