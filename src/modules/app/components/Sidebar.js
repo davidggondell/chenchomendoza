@@ -14,9 +14,8 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
             anchor="left"
             open={open}
             onClose={toogle ? toogle : null}
-            sx={{ border: 'none' }}
         >
-            <Box sx={{ height: '100%', width: sidebarWidth, flexShrink: 0, bgcolor: '#2e2e2e' }}>
+            <Box sx={{ height: '100%', width: sidebarWidth, flexShrink: 0, bgcolor: '' }}>
                 <Box
                     sx={{
                         paddingTop: 3,

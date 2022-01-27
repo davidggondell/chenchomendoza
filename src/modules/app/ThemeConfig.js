@@ -1,20 +1,13 @@
 import { createTheme } from '@mui/material/styles';
 
-
-// components: {
-//     MuiButton: {
-//         styleOverrides: {
-
-//         }
-//     }
-// }
 const theme = createTheme({
     palette: {
         mode: 'dark',
         background: {
-            default: '#2e2e2e',
-            paper: '#2e2e2e'
-        }
+            default: '#0f0f0f',
+            paper: '#0f0f0f'
+        },
+        divider: "rgba(0, 0, 0, 0)"
     }
 })
 
