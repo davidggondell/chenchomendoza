@@ -1,40 +1,49 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import { Box, Collapse, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { Box, List, ListItem, ListItemIcon, ListItemText, Divider } from "@mui/material";
 import Drawer from '@mui/material/Drawer';
 import React from 'react';
 import { useHistory } from "react-router-dom";
+import logo from '../../../images/chenchoLogo.png';
 
-const Sidebar = ({ open, toogle, sidebarWidth, collapsedSidebarWidth }) => {
+const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
     const history = useHistory();
 
     return (
         <Drawer
-            variant="permanent"
+            variant={variant}
             anchor="left"
+            open={open}
+            onClose={toogle ? toogle : null}
+            sx={{ border: 'none' }}
         >
-            <Collapse in={open} orientation="horizontal" collapsedSize={collapsedSidebarWidth}>
-                <Box sx={{ width: sidebarWidth + "px" }}>
-                    <List>
-                        <ListItem button onClick={() => toogle()}>
-                            <ListItemIcon>
-                                <MenuIcon />
-                            </ListItemIcon>
-                        </ListItem>
-                        <ListItem button onClick={() => history.push("/home")}>
-                            <ListItemIcon>
-                                <MenuIcon />
-                            </ListItemIcon>
-                            <ListItemText>Packs</ListItemText>
-                        </ListItem>
-                        <ListItem button onClick={() => history.push("/gallery")}>
-                            <ListItemIcon>
-                                <MenuIcon />
-                            </ListItemIcon>
-                            <ListItemText>Crear venta</ListItemText>
-                        </ListItem>
-                    </List>
+            <Box sx={{ height: '100%', width: sidebarWidth, flexShrink: 0, bgcolor: '#2e2e2e' }}>
+                <Box
+                    sx={{
+                        paddingTop: 3,
+                        paddingBottom: 3,
+                        paddingRight: 2,
+                        paddingLeft: 2,
+                        width: sidebarWidth
+                    }}
+                >
+                    <img src={logo} height="auto" width="100%" alt="logo" />
                 </Box>
-            </Collapse>
+                <Divider orientation="horizontal" />
+                <List component="nav">
+                    <ListItem button onClick={() => history.push("/home")}>
+                        <ListItemIcon>
+                            <MenuIcon />
+                        </ListItemIcon>
+                        <ListItemText>Packs</ListItemText>
+                    </ListItem>
+                    <ListItem button onClick={() => history.push("/gallery")}>
+                        <ListItemIcon>
+                            <MenuIcon />
+                        </ListItemIcon>
+                        <ListItemText>Crear venta</ListItemText>
+                    </ListItem>
+                </List>
+            </Box>
         </Drawer>
     );
 }

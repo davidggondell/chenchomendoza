@@ -1,27 +1,28 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Box, Toolbar, IconButton } from "@mui/material";
+import logo from '../../../images/chenchoLogo.png';
 
-const Header = () => {
+const Header = ({ sidebarWidth, appbarHeight, toogleSidebar }) => {
 
     return (
+        <Box>
+            <AppBar sx={{ marginLeft: sidebarWidth + "px" }}>
+                <Toolbar sx={{ padding: 1, height: appbarHeight + "px" }}>
+                    <img src={logo} height="100%" width="auto" alt="logo" />
+                    <Box sx={{ flexGrow: 1 }}>
+                    </Box>
+                    <IconButton
+                        onClick={() => toogleSidebar()}
+                        sx={{
 
-        <nav className="navbar navbar-expand-lg navbar-light bg-light border">
-            <Link className="navbar-brand" to="/">Chencho Mendoza</Link>
-            <button className="navbar-toggler" type="button" 
-                data-toggle="collapse" data-target="#navbarSupportedContent" 
-                aria-controls="navbarSupportedContent" aria-expanded="false" 
-                aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <ul className="navbar-nav mr-auto">
-                </ul>
-
-            </div>
-        </nav>
-
+                        }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                </Toolbar>
+            </AppBar>
+        </Box>
     );
 
 };

@@ -1,44 +1,52 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { CssBaseline, Box, Collapse, Stack } from '@mui/material';
+import { CssBaseline, Box } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import theme from '../ThemeConfig';
 import Body from './Body';
 import Footer from './Footer';
 import { ThemeProvider } from '@mui/material/styles';
 import Sidebar from './Sidebar';
+import Header from './Header';
 
 const App = () => {
-    const sidebarWidth = 240;
-    const collapsedSidebarWidth = 58;
-    const [sidebarOpened, setSidebarOpened] = React.useState(true);
+    const useAppbar = useMediaQuery(theme.breakpoints.down('md'));
+    const [sidebarOpened, setSidebarOpened] = React.useState(false);
+    const sidebarWidth = useAppbar ? 240 : 320;
+    const appbarHeight = 50;
+    const widthOffset = !useAppbar ? sidebarWidth : 0;
+    const heightOffset = useAppbar ? appbarHeight : 0;
+
     return (
         <React.StrictMode>
             <Router>
                 <ThemeProvider theme={theme}>
                     <CssBaseline>
+                        {useAppbar &&
+                            <Header
+                                sideBarWidth={sidebarWidth}
+                                appbarHeight={appbarHeight}
+                                toogleSidebar={() => setSidebarOpened(!sidebarOpened)}
+                            />
+                        }
                         <Sidebar
                             open={sidebarOpened}
                             toogle={() => setSidebarOpened(!sidebarOpened)}
+                            variant={useAppbar ? "temporary" : "permanent"}
                             sidebarWidth={sidebarWidth}
-                            collapsedSidebarWidth={collapsedSidebarWidth}
                         />
-                        <Stack direction="row">
-                            <Box>
-                                <Collapse
 
-                                    in={sidebarOpened}
-                                    orientation="horizontal"
-                                    collapsedSize={collapsedSidebarWidth}
-                                >
-                                    <Box sx={{ width: sidebarWidth + "px" }}></Box>
-                                </Collapse>
-                            </Box>
-                            <Box>
-                                <Body />
-                                <Footer />
-                            </Box>
-                        </Stack>
+                        <Box
+                            sx={{
+                                paddingLeft: widthOffset + "px",
+                                paddingTop: heightOffset + "px"
+                            }}>
+                            <Body />
+                            {
+                                //<Footer />
+                            }
+                        </Box>
                     </CssBaseline>
                 </ThemeProvider>
             </Router>

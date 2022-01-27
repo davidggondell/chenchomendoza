@@ -9,7 +9,7 @@ const initialState = {
 const images = (state = initialState.images, action) => {
     switch (action.type) {
         case actionTypes.ADD_IMAGE:
-            return state.concat([{ src: action.url }]);
+            return state.concat([action.image]);
         default:
             return state;
     }

@@ -6,7 +6,7 @@ import Home from './Home';
 const Body = () => {
 
     return (
-        <Box >
+        <Box>
             <Switch>
                 <Route exact path="/"><Home /></Route>
                 <Route><Home /></Route>
