@@ -1,13 +1,30 @@
-import MenuIcon from '@mui/icons-material/Menu';
-import { Box, List, ListItem, ListItemIcon, ListItemText, Divider } from "@mui/material";
+import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
 import Drawer from '@mui/material/Drawer';
 import React from 'react';
 import { useHistory } from "react-router-dom";
-import logo from '../../../images/chenchoLogo.png';
+import logo from '../../../images/Logo2Lineas.png';
 
 const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
     const history = useHistory();
-
+    const links = [
+        {
+            text: "Inicio",
+            direction: "/home"
+        },
+        {
+            text: "Retratos",
+            direction: "/home"
+        },
+        {
+            text: "Paisajes",
+            direction: "/home"
+        },
+        {
+            text: "Naturaleza",
+            direction: "/home"
+        },
+    ];
+    //sx={{ fontWeight: 600 }}
     return (
         <Drawer
             variant={variant}
@@ -15,32 +32,29 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
             open={open}
             onClose={toogle ? toogle : null}
         >
-            <Box sx={{ height: '100%', width: sidebarWidth, flexShrink: 0, bgcolor: '' }}>
+            <Box sx={{ height: '100%', width: sidebarWidth, flexShrink: 0, backgroundColor: 'background.default' }}>
                 <Box
                     sx={{
-                        paddingTop: 3,
-                        paddingBottom: 3,
-                        paddingRight: 2,
-                        paddingLeft: 2,
+                        marginTop: 2,
+                        paddingTop: 4,
+                        paddingBottom: 4,
+                        paddingRight: 4,
+                        paddingLeft: 4,
                         width: sidebarWidth
                     }}
                 >
                     <img src={logo} height="auto" width="100%" alt="logo" />
                 </Box>
-                <Divider orientation="horizontal" />
                 <List component="nav">
-                    <ListItem button onClick={() => history.push("/home")}>
-                        <ListItemIcon>
-                            <MenuIcon />
-                        </ListItemIcon>
-                        <ListItemText>Packs</ListItemText>
-                    </ListItem>
-                    <ListItem button onClick={() => history.push("/gallery")}>
-                        <ListItemIcon>
-                            <MenuIcon />
-                        </ListItemIcon>
-                        <ListItemText>Crear venta</ListItemText>
-                    </ListItem>
+                    {links.map((link, i) =>
+                        <ListItem key={i} button onClick={() => history.push(link.direction)}>
+                            <ListItemText sx={{ marginLeft: 4 }}>
+                                <Typography sx={{ fontSize: 25 }}>
+                                    {link.text}
+                                </Typography>
+                            </ListItemText>
+                        </ListItem>
+                    )}
                 </List>
             </Box>
         </Drawer>

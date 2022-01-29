@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Box, Toolbar, IconButton } from "@mui/material";
-import logo from '../../../images/chenchoLogo.png';
+import logo from '../../../images/Logo1Linea.png';
 
 const Header = ({ sidebarWidth, appbarHeight, toogleSidebar }) => {
 
@@ -12,12 +12,7 @@ const Header = ({ sidebarWidth, appbarHeight, toogleSidebar }) => {
                     <img src={logo} height="100%" width="auto" alt="logo" />
                     <Box sx={{ flexGrow: 1 }}>
                     </Box>
-                    <IconButton
-                        onClick={() => toogleSidebar()}
-                        sx={{
-
-                        }}
-                    >
+                    <IconButton onClick={() => toogleSidebar()} >
                         <MenuIcon />
                     </IconButton>
                 </Toolbar>

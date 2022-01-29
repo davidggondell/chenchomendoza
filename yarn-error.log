@@ -1,5 +1,5 @@
 Arguments: 
-  /opt/node-v12.18.2-linux-x64/bin/node /opt/yarn-v1.22.4/bin/yarn.js add react-router-dom^5.3.0
+  /opt/node-v12.18.2-linux-x64/bin/node /opt/yarn-v1.22.4/bin/yarn.js add @fontsource/optima
 
 PATH: 
   /opt/eclipse:/opt/apache-maven-3.6.2/bin:/opt/jdk1.8.0_181/bin:/opt/yarn-v1.22.4/bin:/opt/node-v12.18.2-linux-x64/bin:/home/davidggondell/bin:/home/davidggondell/.local/bin:/opt/eclipse:/opt/apache-maven-3.6.2/bin:/opt/jdk1.8.0_181/bin:/opt/yarn-v1.22.4/bin:/opt/node-v12.18.2-linux-x64/bin:/home/davidggondell/bin:/home/davidggondell/.local/bin:/opt/eclipse:/opt/apache-maven-3.6.2/bin:/opt/jdk1.8.0_181/bin:/opt/yarn-v1.22.4/bin:/opt/node-v12.18.2-linux-x64/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/davidggondell/.local/lib/python3.5/site-packages/pip:/home/davidggondell/Escritorio/MUEI/RIWS/WebSemantica/apache-jena-3.8.0/bin:/home/davidggondell/.local/lib/python3.5/site-packages/pip:/home/davidggondell/Escritorio/MUEI/RIWS/WebSemantica/apache-jena-3.8.0/bin:/home/davidggondell/flutter/bin:/home/davidggondell/.local/lib/python3.5/site-packages/pip:/home/davidggondell/Escritorio/MUEI/RIWS/WebSemantica/apache-jena-3.8.0/bin:/home/davidggondell/flutter/bin
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/react-router-dom%5E5.3.0: Not found
+  Error: https://registry.yarnpkg.com/@fontsource%2foptima: Not found
       at Request.params.callback [as _callback] (/opt/yarn-v1.22.4/lib/cli.js:66987:18)
       at Request.self.callback (/opt/yarn-v1.22.4/lib/cli.js:140748:22)
       at Request.emit (events.js:315:20)
@@ -60,6 +60,12 @@ npm manifest:
       "@babel/core": "^7.0.0-0",
       "@emotion/react": "^11.7.1",
       "@emotion/styled": "^11.6.0",
+      "@fontsource/cinzel": "^4.5.1",
+      "@fontsource/open-sans": "^4.5.3",
+      "@fontsource/playfair-display": "^4.5.2",
+      "@fontsource/quicksand": "^4.5.2",
+      "@fontsource/russo-one": "^4.5.1",
+      "@fontsource/titillium-web": "^4.5.1",
       "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
       "@mui/icons-material": "^5.3.1",
       "@mui/material": "^5.3.1",
@@ -1825,6 +1831,36 @@ Lockfile:
     version "0.6.0"
     resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.6.0.tgz#e18ea901c84917f8dadd0185048a9d00573fe595"
     integrity sha512-Pz4+7HPzKvOFI1ICQ6pyUv/VgStEWq9IGiVaaV1cQLi66NIA1mD5INnY4CDNoVAxlkuZvDEUZ+cVHLQ8iwA2hQ==
+  
+  "@fontsource/cinzel@^4.5.1":
+    version "4.5.1"
+    resolved "https://registry.yarnpkg.com/@fontsource/cinzel/-/cinzel-4.5.1.tgz#ab8dec9e364cf1d8c1b1228bb3d6ec0c86edec67"
+    integrity sha512-O4CYBDfZbKD2emwq/CfU9ITRA0w03L4llXUUb6GHslEU5O22cu/eCFkkC1tXWFGk9BZPm++vuSDat318bqNS4g==
+  
+  "@fontsource/open-sans@^4.5.3":
+    version "4.5.3"
+    resolved "https://registry.yarnpkg.com/@fontsource/open-sans/-/open-sans-4.5.3.tgz#168670a01d195fcff29a169b0c70a676a8e63fdf"
+    integrity sha512-zabYpvz2XkZ4Vp1EN2/k0r5X9kQgwjdj1+kJ6B0T/oN4h9yqJqr9VKxa+JspRxClxDEo23K5GqfuIEH1+WyFOw==
+  
+  "@fontsource/playfair-display@^4.5.2":
+    version "4.5.2"
+    resolved "https://registry.yarnpkg.com/@fontsource/playfair-display/-/playfair-display-4.5.2.tgz#9a7bd123c2a5340f16df03329fa3d2806c81482e"
+    integrity sha512-c5KmPABxg1DR8hSzS4IOWjTFq4G7kUstSA3QzPyGpgs0QusUvGq50b6Hen4JRyWCNXKH1UnUQAf2kkPVovHnhQ==
+  
+  "@fontsource/quicksand@^4.5.2":
+    version "4.5.2"
+    resolved "https://registry.yarnpkg.com/@fontsource/quicksand/-/quicksand-4.5.2.tgz#4667e60ca48f9686c9bde7d5834b1c50e9eed8b4"
+    integrity sha512-B0ybdfHlvgVcB/lvY4C6+DBl9ut7qGUh65CS89JxVZIoiLyWahCCs+6KO5SmbtaMYOh8XtskmLfNo2l8nxieWw==
+  
+  "@fontsource/russo-one@^4.5.1":
+    version "4.5.1"
+    resolved "https://registry.yarnpkg.com/@fontsource/russo-one/-/russo-one-4.5.1.tgz#1302187851b2c60f104ce76f122caab66738d854"
+    integrity sha512-9Xhm35axGAvlJhmfZVgkjaZAFeLbL1GqUQKKZ2kuf7YhgXFqE/gR9sgf+LyTFgA0hezEqOCIYxa15Ynp/LjOZA==
+  
+  "@fontsource/titillium-web@^4.5.1":
+    version "4.5.1"
+    resolved "https://registry.yarnpkg.com/@fontsource/titillium-web/-/titillium-web-4.5.1.tgz#662f0b5aa67b769e76471771778cee9a978357fa"
+    integrity sha512-HG8/tjKhW/syNCNVjraZo+/LvSYq2RjiU7JMm9KejI6QuGAZld9PgCOIIBSgBWMi9T97UKpgLMIke9TABIodeA==
   
   "@formatjs/ecma402-abstract@1.10.0":
     version "1.10.0"
