@@ -45,11 +45,16 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
                 >
                     <img src={logo} height="auto" width="100%" alt="logo" />
                 </Box>
-                <List component="nav">
+                <List component="nav" sx={{ marginTop: 15 }}>
                     {links.map((link, i) =>
-                        <ListItem key={i} button onClick={() => history.push(link.direction)}>
-                            <ListItemText sx={{ marginLeft: 4 }}>
-                                <Typography sx={{ fontSize: 25 }}>
+                        <ListItem
+                            key={i}
+                            button
+                            onClick={() => history.push(link.direction)}
+                            sx={{ height: 40 }}
+                        >
+                            <ListItemText >
+                                <Typography sx={{ fontSize: 20, textAlign: "center" }}>
                                     {link.text}
                                 </Typography>
                             </ListItemText>

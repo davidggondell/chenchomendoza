@@ -1,25 +1,28 @@
+import { Box, Fade, Grid } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Grid, Fade, Dialog } from '@mui/material';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
+import { ImageCaroussel } from './ImageCaroussel';
 
 const ImageGrid = () => {
     const dispatch = useDispatch();
     const matchesSm = useMediaQuery((theme) => theme.breakpoints.up('sm'));
     const matchesL = useMediaQuery((theme) => theme.breakpoints.up('lg'));
-    const columns = 1 + matchesSm + matchesL;
+    const matchesXl = useMediaQuery((theme) => theme.breakpoints.up('xl'));
+    const columns = 1 + matchesSm + matchesL + matchesXl;
+    const photoSpacing = 2;
     const images = useSelector(selectors.getImages);
+    const [initImage, setInitImage] = React.useState(0);
     const [dialogOpen, setDialogOpen] = React.useState(false);
-    const [dialogImage, setDialogImage] = React.useState(null);
 
     const getImageGallery = (images, numrows) => {
         var imageGallery = [];
         for (let i = 0; i < numrows; i++) {
             imageGallery = imageGallery.concat([{ size: 0, imageList: [] }]);
         }
-        images.forEach(img => {
+        images.forEach((img, i) => {
             var listToAppend;
             var imgProportion;
             if (img.width !== 0) {
@@ -36,7 +39,7 @@ const ImageGrid = () => {
             var auxList = imageGallery.at(listToAppend.list);
             let aux = {
                 size: auxList.size + imgProportion,
-                imageList: auxList.imageList.concat([img])
+                imageList: auxList.imageList.concat([{ num: i, ...img }])
             };
             imageGallery.splice(listToAppend.list, 1, aux);
         });
@@ -44,40 +47,33 @@ const ImageGrid = () => {
     }
 
     useEffect(() => {
-        dispatch(actions.getAllImages());
+        dispatch(actions.getAllImages("INICIO"));
     }, [dispatch]);
 
     const gallery = getImageGallery(images, columns);
 
     return (
         <React.Fragment>
-            <Dialog
-                open={dialogOpen}
-                onClose={() => setDialogOpen(false)}
-            >
-                {dialogImage !== null &&
-                    <Box>
-                        {dialogImage.height > dialogImage.width ?
-                            <img src={dialogImage.src} height="90%" alt={dialogImage.src} />
-                            :
-                            <img src={dialogImage.src} width="90%" alt={dialogImage.src} />
-                        }
-                    </Box>
-                }
-            </Dialog>
+            {dialogOpen &&
+                <ImageCaroussel
+                    open={dialogOpen}
+                    onClose={() => setDialogOpen(false)}
+                    images={images}
+                    initImage={initImage}
+                />
+            }
             {gallery !== [] &&
-                <Grid container spacing={2} sx={{ padding: 2 }}>
+                <Grid container spacing={photoSpacing} sx={{ padding: photoSpacing }}>
                     {gallery.map((column, i) => (
                         <Grid item xs={12 / columns} key={i} >
-                            <Grid container direction="column" spacing={2}>
+                            <Grid container direction="column" spacing={photoSpacing}>
                                 {column.imageList.map((image, j) =>
                                     <Grid item key={j}>
                                         <Box
                                             onClick={() => {
                                                 setDialogOpen(!dialogOpen);
-                                                setDialogImage(image);
-                                            }
-                                            }
+                                                setInitImage(image.num);
+                                            }}
                                             sx={{
                                                 '&:hover': {
                                                     backgroundColor: '#000'
