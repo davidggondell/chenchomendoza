@@ -16,6 +16,7 @@ import configureStore from './store';
 import { App } from './modules/app';
 import { initReactIntl } from './i18n';
 import './styles.css';
+import './polyfills';
 
 /* Configure store. */
 const store = configureStore();

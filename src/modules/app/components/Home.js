@@ -1,11 +1,14 @@
-import React from 'react';
-import { ImageGrid } from '../../images/'
-import { Box } from '@mui/material'
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
-const Home = () => (
-    <Box>
-        <ImageGrid />
-    </Box>
-);
+const Home = () => {
+    const history = useHistory();
+
+    useEffect(() => {
+        history.push("/inicio");
+    });
+
+    return null;
+};
 
 export default Home;
