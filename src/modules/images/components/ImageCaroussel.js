@@ -4,8 +4,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import CloseIcon from '@mui/icons-material/Close';
 import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-// import FullscreenIcon from '@mui/icons-material/Fullscreen';
-// import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { Box, Button, ButtonGroup, createTheme, Dialog, DialogContent, Fade, Grid, IconButton, ThemeProvider } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useInterval } from '../../hooks/useInterval';
@@ -16,7 +14,7 @@ export const ImageCaroussel = ({ open, onClose, images, initImage }) => {
     const [pause, setPause] = React.useState(false);
     const dialogImage = images[dialogImageNum];
     const smallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    //const fullScreen = document.fullscreenElement;
+
     const theme = createTheme({
         palette: {
             mode: 'dark',
@@ -80,32 +78,6 @@ export const ImageCaroussel = ({ open, onClose, images, initImage }) => {
             nextImg();
         }
     }
-
-    // function openFullscreen() {
-    //     var element = document.querySelector("#carousselDialog");
-    //     console.log(element)
-    //     if (element.requestFullscreen) {
-    //         element.requestFullscreen();
-    //     } else if (element.mozRequestFullScreen) { /* Firefox */
-    //         element.mozRequestFullScreen();
-    //     } else if (element.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-    //         element.webkitRequestFullscreen();
-    //     } else if (element.msRequestFullscreen) { /* IE/Edge */
-    //         element.msRequestFullscreen();
-    //     }
-    // }
-
-    // function closeFullscreen() {
-    //     if (document.exitFullscreen) {
-    //         document.exitFullscreen();
-    //     } else if (document.mozCancelFullScreen) { /* Firefox */
-    //         document.mozCancelFullScreen();
-    //     } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
-    //         document.webkitExitFullscreen();
-    //     } else if (document.msExitFullscreen) { /* IE/Edge */
-    //         document.msExitFullscreen();
-    //     }
-    // }
 
     useInterval(() => startLoop(), 4000);
 

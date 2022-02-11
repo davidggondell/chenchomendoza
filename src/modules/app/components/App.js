@@ -5,7 +5,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 import theme from '../ThemeConfig';
 import Body from './Body';
-import Footer from './Footer';
 import { ThemeProvider } from '@mui/material/styles';
 import Sidebar from './Sidebar';
 import Header from './Header';

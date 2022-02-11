@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Box } from '@mui/material';
 import Home from './Home';
 import { ImageGrid } from '../../images';
+import { AboutMe } from '../../about';
 
 const Body = () => {
 
@@ -14,7 +15,8 @@ const Body = () => {
                 <Route exact path="/naturaleza"><ImageGrid galleryUrl={"NATURALEZA"} /></Route>
                 <Route exact path="/paisaje"><ImageGrid galleryUrl={"PAISAJE"} /></Route>
                 <Route exact path="/retrato"><ImageGrid galleryUrl={"RETRATO"} /></Route>
-                <Route exact path="/varios"><ImageGrid galleryUrl={"VARIOS"} /></Route>
+                <Route exact path="/sobremi"><AboutMe /></Route>
+                <Route exact path="/otros"><ImageGrid galleryUrl={"OTROS"} /></Route>
                 <Route><Home /></Route>
             </Switch>
         </Box>

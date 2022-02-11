@@ -91,18 +91,18 @@ const ImageGrid = ({ galleryUrl }) => {
                                                     setDialogOpen(!dialogOpen);
                                                     setInitImage(image.num);
                                                 }}
-                                                sx={{
+                                                sx={!matchesMd ? {
                                                     '&:hover': {
                                                         backgroundColor: '#000'
                                                     },
-                                                }}
+                                                } : {}}
                                             >
                                                 <Box
-                                                    sx={{
+                                                    sx={!matchesMd ? {
                                                         '&:hover': {
-                                                            opacity: 0.4
+                                                            opacity: 0.6
                                                         },
-                                                    }}
+                                                    } : {}}
                                                 >
                                                     <Fade
                                                         in={true}
