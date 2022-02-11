@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Chencho mendoza fotografía",
   "private": true,
-  "homepage": "http://www.xente.mundo-r.com/chenchomendoza/",
+  "homepage": ".",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
