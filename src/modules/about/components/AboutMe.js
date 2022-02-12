@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
-import aboutMeImg from '../../../images/about.jpg';
+import aboutMeImg from '../../../images/about2.jpg';
 
 const AboutMe = () => {
     return (
@@ -8,7 +8,8 @@ const AboutMe = () => {
             <Box position="fixed" display="flex" height="100%" width="100%"
                 sx={{
                     backgroundImage: `url(${aboutMeImg})`,
-                    backgroundSize: "cover",
+                    backgroundSize: "auto 100%",
+                    backgroundRepeat: "no-repeat",
                     backgroundPosition: "bottom left"
                 }}
             />
