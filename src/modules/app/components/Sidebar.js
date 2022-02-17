@@ -23,6 +23,9 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
                 disableTouchRipple
                 onClick={() => {
                     action();
+                    if (toogle && direction) {
+                        toogle();
+                    }
                 }}
                 sx={location.pathname === direction || selected ?
                     {
@@ -96,15 +99,15 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
                     <GalleryItem text="CONTACTO" action={() => history.push("/contacto")} direction="/contacto" />
                 </List>
                 <Grid container spacing={1} sx={{ position: "absolute", bottom: "1vh", paddingLeft: variant === "permanent" ? "80px" : "50px" }}>
-                    <IconButton size="large">
+                    <IconButton size="large" onClick={() => window.open("https://www.instagram.com/chenchomendoza/", "_blank")}>
                         <InstagramIcon fontSize="inherit" />
                     </IconButton>
-                    <IconButton size="large">
+                    <IconButton size="large" href="https://www.flickr.com/photos/chenchomendoza/" target="_blank">
                         <Icon fontSize="inherit" height="100%" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                             <img src={FlickrIcon} style={{ height: "80%", width: "80%", opacity: .54 }} alt="flickr" />
                         </Icon>
                     </IconButton>
-                    <IconButton size="large">
+                    <IconButton size="large" href="https://500px.com/p/chenchomendoza" target="_blank">
                         <Icon fontSize="inherit" height="100%" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                             <img src={pxIcon} style={{ height: "80%", width: "80%", opacity: .54 }} alt="500px" />
                         </Icon>

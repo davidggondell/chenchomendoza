@@ -92,28 +92,24 @@ const ImageGrid = ({ galleryUrl }) => {
                                                     setInitImage(image.num);
                                                 }}
                                                 sx={!matchesMd ? {
+                                                    cursor: "pointer",
+                                                    transition: "all 0.5s",
+                                                    WebkitTransition: "all 0.5s",
                                                     '&:hover': {
-                                                        backgroundColor: '#000'
+                                                        filter: "brightness(60%)",
+                                                        transform: "scale(0.97)"
                                                     },
-                                                } : {}}
+                                                } : { cursor: "pointer", }}
                                             >
-                                                <Box
-                                                    sx={!matchesMd ? {
-                                                        '&:hover': {
-                                                            opacity: 0.6
-                                                        },
-                                                    } : {}}
+                                                <Fade
+                                                    in={true}
+                                                    sx={{ width: "100%", height: "100%" }}
+                                                    timeout={{
+                                                        enter: 1500
+                                                    }}
                                                 >
-                                                    <Fade
-                                                        in={true}
-                                                        sx={{ width: "100%", height: "100%" }}
-                                                        timeout={{
-                                                            enter: 1500
-                                                        }}
-                                                    >
-                                                        <img width="100%" src={image.src} alt={"image" + i + j} />
-                                                    </Fade>
-                                                </Box>
+                                                    <img width="100%" src={image.src} alt={"image" + i + j} />
+                                                </Fade>
                                             </Box>
                                         </Grid>
                                     )}
