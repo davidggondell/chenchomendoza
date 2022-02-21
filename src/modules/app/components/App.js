@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { CssBaseline, Box } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import Aos from "aos";
+import 'aos/dist/aos.css';
 
 import theme from '../ThemeConfig';
 import Body from './Body';
@@ -16,6 +18,11 @@ const App = () => {
     const appbarHeight = 50;
     const widthOffset = !useAppbar ? sidebarWidth : 0;
     const heightOffset = useAppbar ? appbarHeight : 0;
+
+    useEffect(() => {
+        Aos.init({ duration: 1500 })
+    }, [])
+
 
     return (
         <React.StrictMode>

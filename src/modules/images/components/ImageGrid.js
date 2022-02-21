@@ -1,4 +1,4 @@
-import { Box, Fade, Grid, CircularProgress } from '@mui/material';
+import { Box, Grid, CircularProgress } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -76,7 +76,7 @@ const ImageGrid = ({ galleryUrl }) => {
                     />
                 }
                 {emptyGallery ?
-                    <Box sx={{ display: 'flex', justifyContent: "center", marginTop: "30vh" }}>
+                    <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "100vh" }}>
                         <CircularProgress color="inherit" />
                     </Box>
                     :
@@ -101,15 +101,9 @@ const ImageGrid = ({ galleryUrl }) => {
                                                     },
                                                 } : { cursor: "pointer", }}
                                             >
-                                                <Fade
-                                                    in={true}
-                                                    sx={{ width: "100%", height: "100%" }}
-                                                    timeout={{
-                                                        enter: 1500
-                                                    }}
-                                                >
+                                                <div data-aos="fade-up" data-aos-once="true" style={{ width: "100%", height: "100%" }}>
                                                     <img width="100%" src={image.src} alt={"image" + i + j} />
-                                                </Fade>
+                                                </div>
                                             </Box>
                                         </Grid>
                                     )}

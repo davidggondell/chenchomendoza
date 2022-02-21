@@ -77,7 +77,7 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
                 >
                     <img src={logo} height="auto" width="100%" alt="logo" />
                 </Box>
-                <List component="nav" sx={{ marginTop: "10vh", paddingLeft: variant === "permanent" ? 10 : 6 }}>
+                <List component="nav" sx={{ marginTop: "15vh", paddingLeft: variant === "permanent" ? 10 : 6 }}>
                     <GalleryItem text="INICIO" action={() => history.push("/inicio")} direction="/inicio" />
                     <GalleryItem text={openGallery ? "GALERÍAS -" : "GALERÍAS +"} action={() => setOpenGallery(!openGallery)} selected={openGallery} />
                     <Collapse in={openGallery} sx={{ paddingLeft: 2 }}>
@@ -96,7 +96,7 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
                         </Grid>
                     </Collapse>
                     <GalleryItem text="SOBRE MI" action={() => history.push("/sobremi")} direction="/sobremi" />
-                    <GalleryItem text="CONTACTO" action={() => history.push("/contacto")} direction="/contacto" />
+                    {/* <GalleryItem text="CONTACTO" action={() => history.push("/contacto")} direction="/contacto" /> */}
                 </List>
                 <Grid container spacing={1} sx={{ position: "absolute", bottom: "1vh", paddingLeft: variant === "permanent" ? "80px" : "50px" }}>
                     <IconButton size="large" onClick={() => window.open("https://www.instagram.com/chenchomendoza/", "_blank")}>
