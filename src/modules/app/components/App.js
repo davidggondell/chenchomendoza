@@ -4,12 +4,13 @@ import { CssBaseline, Box } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Aos from "aos";
 import 'aos/dist/aos.css';
-
+import '../app.css';
 import theme from '../ThemeConfig';
 import Body from './Body';
 import { ThemeProvider } from '@mui/material/styles';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import StartLoader from './StartLoader';
 
 const App = () => {
     const useAppbar = useMediaQuery(theme.breakpoints.down('md'));
@@ -20,15 +21,15 @@ const App = () => {
     const heightOffset = useAppbar ? appbarHeight : 0;
 
     useEffect(() => {
-        Aos.init({ duration: 1500 })
+        Aos.init({ duration: 750 })
     }, [])
-
 
     return (
         <React.StrictMode>
             <Router>
                 <ThemeProvider theme={theme}>
                     <CssBaseline>
+                        <StartLoader />
                         {useAppbar &&
                             <Header
                                 sideBarWidth={sidebarWidth}

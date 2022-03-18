@@ -1,0 +1,12 @@
+.fade-in-start {
+    animation: fadeIn 2s;
+    -webkit-animation: fadeIn 2s;
+    -moz-animation: fadeIn 2s;
+    -o-animation: fadeIn 2s;
+    -ms-animation: fadeIn 2s;
+}
+@keyframes fadeIn {
+    0% {opacity:1;}
+    50% {opacity:1;}
+    100% {opacity: 0;}
+}

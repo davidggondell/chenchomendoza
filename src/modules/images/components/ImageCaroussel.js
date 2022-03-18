@@ -4,7 +4,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import CloseIcon from '@mui/icons-material/Close';
 import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import { Box, Button, ButtonGroup, createTheme, Dialog, DialogContent, Fade, Grid, IconButton, ThemeProvider } from '@mui/material';
+import { Box, Button, ButtonGroup, createTheme, Dialog, DialogContent, Fade, Grid, IconButton, ThemeProvider, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useInterval } from '../../hooks/useInterval';
 
@@ -163,6 +163,11 @@ export const ImageCaroussel = ({ open, onClose, images, initImage }) => {
                                         </IconButton>
                                     </Grid>
                                 }
+                                <Grid item xs={12} sx={{ display: "flex", justifyContent: "center", height: "16px" }}>
+                                    <Typography sx={{ color: "white", padding: "4px" }}>
+                                        {dialogImage.name}
+                                    </Typography>
+                                </Grid>
                                 <Grid item xs={12}
                                     sx={{
                                         paddingTop: 2,
@@ -171,7 +176,6 @@ export const ImageCaroussel = ({ open, onClose, images, initImage }) => {
                                         justifyContent: "center"
                                     }}
                                 >
-
                                     <ButtonGroup color="primary" size="small">
                                         {smallScreen &&
                                             <Button onClick={() => prevImg()}>

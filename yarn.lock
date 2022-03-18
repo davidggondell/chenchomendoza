@@ -10344,6 +10344,11 @@ schema-utils@^2.0.0, schema-utils@^2.0.1, schema-utils@^2.1.0, schema-utils@^2.2
     ajv "^6.10.2"
     ajv-keywords "^3.4.1"
 
+scroll-lock@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/scroll-lock/-/scroll-lock-2.1.5.tgz#18bb7697f02176cbfd093726c3c972b7cbc9975f"
+  integrity sha512-GN8Lp0AzXbkrPFUUNkMUruiiv019UvarNKE/SnXi+AxZRjMnDc2R22VB9RcUtL4P/uub04cKibmpHKIKTyWwYQ==
+
 select-hose@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"

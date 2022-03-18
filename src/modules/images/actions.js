@@ -25,7 +25,7 @@ export const getAllImages = (url) => (dispatch) => {
             getDownloadURL(image).then(url => {
                 var img = new Image();
                 img.onload = function () {
-                    dispatch(addImage({ searchNum: thisSearch, src: url, width: this.width, height: this.height }));
+                    dispatch(addImage({ searchNum: thisSearch, src: url, width: this.width, height: this.height, name: image._location.path.split("/")[1].split(".")[0] }));
                 }
                 img.src = url;
             });

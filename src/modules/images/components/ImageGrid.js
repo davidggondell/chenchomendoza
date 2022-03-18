@@ -66,7 +66,12 @@ const ImageGrid = ({ galleryUrl }) => {
 
     return (
         <React.Fragment>
-            <Box onContextMenu={event => event.preventDefault()} sx={matchesMd ? { marginTop: 0 + matchesMd + matchesSm } : {}}>
+            <Box onContextMenu={event => event.preventDefault()}
+                sx={{
+                    marginTop: matchesMd ? (0 + matchesMd + matchesSm) : 0,
+                    backgroundImage: "linear-gradient(to right, #FDFDFD, white)"
+                }}
+            >
                 {dialogOpen &&
                     <ImageCaroussel
                         open={dialogOpen}
@@ -80,7 +85,7 @@ const ImageGrid = ({ galleryUrl }) => {
                         <CircularProgress color="inherit" />
                     </Box>
                     :
-                    <Grid container spacing={photoSpacing} sx={{ padding: photoSpacing }}>
+                    <Grid container spacing={photoSpacing} sx={{ padding: photoSpacing, paddingRight: 8, paddingLeft: 8 }}>
                         {gallery.map((column, i) => (
                             <Grid item xs={12 / columns} key={i} >
                                 <Grid container direction="column" spacing={photoSpacing}>

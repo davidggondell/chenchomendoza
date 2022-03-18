@@ -1,4 +1,4 @@
-import { Box, List, ListItem, ListItemText, Typography, Collapse, Grid, Divider, IconButton, Icon } from "@mui/material";
+import { Box, List, ListItem, ListItemText, Typography, Collapse, Grid, Divider, IconButton, Icon, Stack } from "@mui/material";
 import Drawer from '@mui/material/Drawer';
 import React from 'react';
 import { useHistory } from "react-router-dom";
@@ -64,7 +64,12 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
             onClose={toogle ? toogle : null}
             width={sidebarWidth}
         >
-            <Box sx={{ height: '100%', flexShrink: 0, backgroundColor: 'background.default' }}>
+
+            <Stack
+                sx={{ height: "100%", flexShrink: 0, backgroundColor: 'background.paper' }}
+                direction="column"
+                justifyContent="space-between"
+            >
                 <Box
                     sx={{
                         marginTop: 2,
@@ -77,7 +82,7 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
                 >
                     <img src={logo} height="auto" width="100%" alt="logo" />
                 </Box>
-                <List component="nav" sx={{ marginTop: "15vh", paddingLeft: variant === "permanent" ? 10 : 6 }}>
+                <List component="nav" sx={{ paddingLeft: variant === "permanent" ? 10 : 6 }}>
                     <GalleryItem text="INICIO" action={() => history.push("/inicio")} direction="/inicio" />
                     <GalleryItem text={openGallery ? "GALERÍAS -" : "GALERÍAS +"} action={() => setOpenGallery(!openGallery)} selected={openGallery} />
                     <Collapse in={openGallery} sx={{ paddingLeft: 2 }}>
@@ -96,24 +101,26 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
                         </Grid>
                     </Collapse>
                     <GalleryItem text="SOBRE MI" action={() => history.push("/sobremi")} direction="/sobremi" />
-                    {/* <GalleryItem text="CONTACTO" action={() => history.push("/contacto")} direction="/contacto" /> */}
+                    <GalleryItem text="CONTACTO" action={() => history.push("/contacto")} direction="/contacto" />
                 </List>
-                <Grid container spacing={1} sx={{ position: "absolute", bottom: "1vh", paddingLeft: variant === "permanent" ? "80px" : "50px" }}>
-                    <IconButton size="large" onClick={() => window.open("https://www.instagram.com/chenchomendoza/", "_blank")}>
-                        <InstagramIcon fontSize="inherit" />
-                    </IconButton>
-                    <IconButton size="large" href="https://www.flickr.com/photos/chenchomendoza/" target="_blank">
-                        <Icon fontSize="inherit" height="100%" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                            <img src={FlickrIcon} style={{ height: "80%", width: "80%", opacity: .54 }} alt="flickr" />
-                        </Icon>
-                    </IconButton>
-                    <IconButton size="large" href="https://500px.com/p/chenchomendoza" target="_blank">
-                        <Icon fontSize="inherit" height="100%" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                            <img src={pxIcon} style={{ height: "80%", width: "80%", opacity: .54 }} alt="500px" />
-                        </Icon>
-                    </IconButton>
-                </Grid>
-            </Box>
+                <Box sx={{ height: "20%" }}>
+                    <Grid container spacing={1} sx={{ paddingLeft: variant === "permanent" ? "80px" : "50px", height: "100%" }} alignItems="flex-end">
+                        <IconButton size="large" onClick={() => window.open("https://www.instagram.com/chenchomendoza/", "_blank")}>
+                            <InstagramIcon fontSize="inherit" />
+                        </IconButton>
+                        <IconButton size="large" href="https://www.flickr.com/photos/chenchomendoza/" target="_blank">
+                            <Icon fontSize="inherit" height="100%" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                <img src={FlickrIcon} style={{ height: "80%", width: "80%", opacity: .54 }} alt="flickr" />
+                            </Icon>
+                        </IconButton>
+                        <IconButton size="large" href="https://500px.com/p/chenchomendoza" target="_blank">
+                            <Icon fontSize="inherit" height="100%" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                <img src={pxIcon} style={{ height: "80%", width: "80%", opacity: .54 }} alt="500px" />
+                            </Icon>
+                        </IconButton>
+                    </Grid>
+                </Box>
+            </Stack>
         </Drawer >
     );
 }
