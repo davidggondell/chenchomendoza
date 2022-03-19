@@ -59,7 +59,7 @@ const AboutMe = () => {
                             hacer mis primeras diapositivas y fotografías en blanco y negro. Cinco años mas tarde tuve la oportunidad de comenzar a
                             trabajar realizando trabajos de estudio y fotografía social usando una cámara de formato medio Zenza Bronica y Nikon FM2.<br /><br />
 
-                            A día de hoy dedico mi tiempo libre a mostrar el patrimonio etnográfico y paisajístico principalmente de mi tierra (Galicia)
+                            En la actualidad dedico mi tiempo libre a mostrar el patrimonio etnográfico y paisajístico principalmente de mi tierra (Galicia)
                             y la fotografía sigue siendo mi gran afición que me ha acompañado a lo largo de los años, una válvula de escape con la que
                             disfruto como el primer día.
                         </Typography>

@@ -11,7 +11,7 @@ const StartLoader = () => {
             {loader &&
                 <Stack justifyContent="center" alignItems="center"
                     onAnimationEnd={() => { setLoader(false); console.log("buenas") }}
-                    className='fade-in-start'
+                    className='fade-out-start'
                     sx={{
                         position: "fixed",
                         width: "100%",
@@ -21,10 +21,10 @@ const StartLoader = () => {
                         zIndex: 1201
                     }}
                 >
-                    <Typography sx={{ fontSize: matchesSm ? 40 : 60, textAlign: "center" }}>
+                    <Typography className="zoom-in-text-start" sx={{ fontSize: matchesSm ? 40 : 60, textAlign: "center" }}>
                         CAPTURANDO INSTANTES
                     </Typography>
-                    <img src={firma} alt="firma" style={{ maxWidth: "400px" }}></img>
+                    <img src={firma} alt="firma" className="zoom-in-text-start" style={{ maxWidth: "400px" }}></img>
                 </Stack>
             }
         </React.Fragment>

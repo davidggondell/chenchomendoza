@@ -100,7 +100,7 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
                             </Grid>
                         </Grid>
                     </Collapse>
-                    <GalleryItem text="SOBRE MI" action={() => history.push("/sobremi")} direction="/sobremi" />
+                    <GalleryItem text="SOBRE MÍ" action={() => history.push("/sobremi")} direction="/sobremi" />
                     <GalleryItem text="CONTACTO" action={() => history.push("/contacto")} direction="/contacto" />
                 </List>
                 <Box sx={{ height: "20%" }}>

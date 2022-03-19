@@ -43,7 +43,6 @@ const App = () => {
                             variant={useAppbar ? "temporary" : "permanent"}
                             sidebarWidth={sidebarWidth}
                         />
-
                         <Box
                             sx={{
                                 paddingLeft: widthOffset + "px",

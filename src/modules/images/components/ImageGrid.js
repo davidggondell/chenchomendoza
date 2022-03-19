@@ -1,4 +1,4 @@
-import { Box, Grid, CircularProgress } from '@mui/material';
+import { Box, Grid, CircularProgress, Fade } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -68,8 +68,9 @@ const ImageGrid = ({ galleryUrl }) => {
         <React.Fragment>
             <Box onContextMenu={event => event.preventDefault()}
                 sx={{
+                    minHeight: "101vh",
                     marginTop: matchesMd ? (0 + matchesMd + matchesSm) : 0,
-                    backgroundImage: "linear-gradient(to right, #FDFDFD, white)"
+                    backgroundImage: "linear-gradient(to right, #FDFDFD, white)",
                 }}
             >
                 {dialogOpen &&
@@ -85,9 +86,9 @@ const ImageGrid = ({ galleryUrl }) => {
                         <CircularProgress color="inherit" />
                     </Box>
                     :
-                    <Grid container spacing={photoSpacing} sx={{ padding: photoSpacing, paddingRight: 8, paddingLeft: 8 }}>
+                    <Grid container spacing={photoSpacing} sx={{ padding: photoSpacing, paddingRight: matchesMd ? 1 : 8, paddingLeft: matchesMd ? 1 : 8 }}>
                         {gallery.map((column, i) => (
-                            <Grid item xs={12 / columns} key={i} >
+                            <Grid item xs={12 / columns} key={i}>
                                 <Grid container direction="column" spacing={photoSpacing}>
                                     {column.imageList.map((image, j) =>
                                         <Grid item key={j}>
@@ -106,9 +107,9 @@ const ImageGrid = ({ galleryUrl }) => {
                                                     },
                                                 } : { cursor: "pointer", }}
                                             >
-                                                <div data-aos="fade-up" data-aos-once="true" style={{ width: "100%", height: "100%" }}>
+                                                <Fade in={true} sx={{ width: "100%", height: "100%" }} timeout={1500}>
                                                     <img width="100%" src={image.src} alt={"image" + i + j} />
-                                                </div>
+                                                </Fade>
                                             </Box>
                                         </Grid>
                                     )}

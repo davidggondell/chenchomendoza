@@ -1,12 +1,26 @@
-.fade-in-start {
-    animation: fadeIn 2s;
-    -webkit-animation: fadeIn 2s;
-    -moz-animation: fadeIn 2s;
-    -o-animation: fadeIn 2s;
-    -ms-animation: fadeIn 2s;
+.fade-out-start {
+    animation: fadeOut 4s;
+    -webkit-animation: fadeOut 4s;
+    -moz-animation: fadeOut 4s;
+    -o-animation: fadeOut 4s;
+    -ms-animation: fadeOut 4s;
 }
-@keyframes fadeIn {
+@keyframes fadeOut {
     0% {opacity:1;}
     50% {opacity:1;}
     100% {opacity: 0;}
+}
+
+.zoom-in-text-start {
+    animation: zoomInText 4s;
+    -webkit-animation: zoomInText 4s;
+    -moz-animation: zoomInText 4s;
+    -o-animation: zoomInText 4s;
+    -ms-animation: zoomInText 4s;
+}
+
+@keyframes zoomInText {
+    0% {transform: scale(0.8);}
+    50% {transform: scale(1);}
+    100% {transform: scale(1);}
 }
