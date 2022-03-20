@@ -2,6 +2,7 @@ import { Stack, Typography } from '@mui/material';
 import React from 'react';
 import firma from '../../../images/firma.jpg';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { FormattedMessage } from 'react-intl';
 
 const StartLoader = () => {
     const matchesSm = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -22,7 +23,7 @@ const StartLoader = () => {
                     }}
                 >
                     <Typography className="zoom-in-text-start" sx={{ fontSize: matchesSm ? 40 : 60, textAlign: "center" }}>
-                        CAPTURANDO INSTANTES
+                        <FormattedMessage id="project.startLoader.title" />
                     </Typography>
                     <img src={firma} alt="firma" className="zoom-in-text-start" style={{ maxWidth: "400px" }}></img>
                 </Stack>

@@ -5,6 +5,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import pxIcon from '../../../images/500pxIcon.png';
 import FlickrIcon from '../../../images/flickrIcon.png';
 import camaracolor from '../../../images/camaracolor.jpg';
+import { FormattedMessage } from "react-intl";
 
 const Contact = () => {
     const matchesSm = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -33,7 +34,7 @@ const Contact = () => {
                         }}
                     >
                         <Typography variant="h3" sx={{ fontFamily: "Bebas Neue", textAlign: "center", paddingBottom: 1 }}>
-                            Contacto
+                            <FormattedMessage id="project.contact.contact" />
                         </Typography>
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
@@ -43,12 +44,11 @@ const Contact = () => {
                                     }}
                                 >
                                     <Typography sx={{ fontFamily: "Bebas Neue", fontSize: 20, marginBottom: "14px" }}>
-                                        Información legal
+                                        <FormattedMessage id="project.contact.legalInfo" />
                                     </Typography>
                                     <Typography>
-                                        Todas las fotógrafías contenidas en esta web y los derechos sobre las mismas son de la exclusiva propiedad de su autor.
-                                        Queda prohibida la reproducción total o parcial, difusión o comunicación pública sin la autorizacíon del mismo.<br /><br />
-                                        Si estas interesado en alguna de mis imágenes puedes contactar conmigo a través de mi dirección de correo.
+                                        <FormattedMessage id="project.contact.legalInfoTextFirst" /><br /><br />
+                                        <FormattedMessage id="project.contact.legalInfoTextSecond" />
                                     </Typography>
                                 </Box>
                             </Grid>
@@ -59,7 +59,7 @@ const Contact = () => {
                                     }}
                                 >
                                     <Typography sx={{ fontFamily: "Bebas Neue", fontSize: 20, marginBottom: "14px" }}>
-                                        Email personal
+                                        <FormattedMessage id="project.contact.personalEmail" />
                                     </Typography>
                                     <a href="mailto:chenchomendoza@mundo-r.com" style={{ color: "black", opacity: .54 }}>
                                         chenchomendoza@mundo-r.com
@@ -73,7 +73,7 @@ const Contact = () => {
                                     }}
                                 >
                                     <Typography sx={{ fontFamily: "Bebas Neue", fontSize: 20, marginBottom: 1 }}>
-                                        Redes Sociales
+                                        <FormattedMessage id="project.contact.socialMedia" />
                                     </Typography>
                                     <Grid container spacing={1}>
                                         <IconButton size="large" onClick={() => window.open("https://www.instagram.com/chenchomendoza/", "_blank")}>

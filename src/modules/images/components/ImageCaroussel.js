@@ -13,7 +13,9 @@ export const ImageCaroussel = ({ open, onClose, images, initImage }) => {
     const [fadeIn, setFadeIn] = React.useState(true);
     const [pause, setPause] = React.useState(false);
     const dialogImage = images[dialogImageNum];
+    const [skipInterval, setSkipInterval] = React.useState(false);
     const smallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+    const loopTime = 6000;
 
     const theme = createTheme({
         palette: {
@@ -59,6 +61,7 @@ export const ImageCaroussel = ({ open, onClose, images, initImage }) => {
         setTimeout(() => {
             setFadeIn(true);
         }, 10);
+        setSkipInterval(true);
     }
 
     const prevImg = () => {
@@ -71,15 +74,19 @@ export const ImageCaroussel = ({ open, onClose, images, initImage }) => {
         setTimeout(() => {
             setFadeIn(true);
         }, 10);
+        setSkipInterval(true);
     }
 
     const startLoop = () => {
-        if (!pause && open) {
+        if (!pause && !skipInterval && open) {
             nextImg();
+        }
+        if (skipInterval) {
+            setSkipInterval(false);
         }
     }
 
-    useInterval(() => startLoop(), 4000);
+    useInterval(() => startLoop(), loopTime);
 
     return (
         <Dialog
@@ -114,13 +121,14 @@ export const ImageCaroussel = ({ open, onClose, images, initImage }) => {
                         </Box>
                         <DialogContent
                             sx={{
+                                width: "100%",
                                 position: "fixed",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
                             }}
                         >
-                            <Grid container>
+                            <Grid container justifyContent="space-between" sx={{ width: "100%" }}>
                                 {!smallScreen &&
                                     <Grid item xs={1}
                                         sx={{
@@ -135,7 +143,7 @@ export const ImageCaroussel = ({ open, onClose, images, initImage }) => {
                                     </Grid>
                                 }
                                 <Grid item xs={smallScreen ? 12 : 10} sx={{
-                                    maxWidth: "90vh", maxHeight: "90vh",
+                                    maxWidth: "90vh", height: "90vh",
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center"

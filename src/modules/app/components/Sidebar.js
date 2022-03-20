@@ -9,6 +9,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FlickrIcon from '../../../images/flickrIcon.png';
 import pxIcon from '../../../images/500pxIcon.png';
+import { FormattedMessage } from "react-intl";
 
 const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
     const history = useHistory();
@@ -80,11 +81,19 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
                         width: sidebarWidth
                     }}
                 >
-                    <img src={logo} height="auto" width="100%" alt="logo" />
+                    <img src={logo} height="auto" width="100%" alt="logo" onClick={() => history.push("/inicio")} />
                 </Box>
                 <List component="nav" sx={{ paddingLeft: variant === "permanent" ? 10 : 6 }}>
-                    <GalleryItem text="INICIO" action={() => history.push("/inicio")} direction="/inicio" />
-                    <GalleryItem text={openGallery ? "GALERÍAS -" : "GALERÍAS +"} action={() => setOpenGallery(!openGallery)} selected={openGallery} />
+                    <GalleryItem
+                        text={<FormattedMessage id="project.navigation.home" />}
+                        action={() => history.push("/inicio")}
+                        direction="/inicio"
+                    />
+                    <GalleryItem
+                        text={openGallery ? <FormattedMessage id="project.navigation.galleriesOpened" /> : <FormattedMessage id="project.navigation.galleriesClosed" />}
+                        action={() => setOpenGallery(!openGallery)}
+                        selected={openGallery}
+                    />
                     <Collapse in={openGallery} sx={{ paddingLeft: 2 }}>
                         <Grid container spacing={1}>
                             <Grid item>
@@ -93,15 +102,31 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
                                 </ThemeProvider>
                             </Grid>
                             <Grid item>
-                                <GalleryItem text="PAISAJE" action={() => history.push("/paisaje")} direction="/paisaje" />
-                                <GalleryItem text="NATURALEZA" action={() => history.push("/naturaleza")} direction="/naturaleza" />
-                                <GalleryItem text="RETRATOS" action={() => history.push("/retrato")} direction="/retrato" />
-                                <GalleryItem text="OTROS" action={() => history.push("/otros")} direction="/otros" />
+                                <GalleryItem
+                                    text={<FormattedMessage id="project.navigation.landscape" />}
+                                    action={() => history.push("/paisaje")}
+                                    direction="/paisaje"
+                                />
+                                <GalleryItem
+                                    text={<FormattedMessage id="project.navigation.nature" />}
+                                    action={() => history.push("/naturaleza")}
+                                    direction="/naturaleza"
+                                />
+                                <GalleryItem
+                                    text={<FormattedMessage id="project.navigation.portraits" />}
+                                    action={() => history.push("/retrato")}
+                                    direction="/retrato"
+                                />
+                                <GalleryItem
+                                    text={<FormattedMessage id="project.navigation.others" />}
+                                    action={() => history.push("/otros")}
+                                    direction="/otros"
+                                />
                             </Grid>
                         </Grid>
                     </Collapse>
-                    <GalleryItem text="SOBRE MÍ" action={() => history.push("/sobremi")} direction="/sobremi" />
-                    <GalleryItem text="CONTACTO" action={() => history.push("/contacto")} direction="/contacto" />
+                    <GalleryItem text={<FormattedMessage id="project.navigation.aboutme" />} action={() => history.push("/sobremi")} direction="/sobremi" />
+                    <GalleryItem text={<FormattedMessage id="project.navigation.contact" />} action={() => history.push("/contacto")} direction="/contacto" />
                 </List>
                 <Box sx={{ height: "20%" }}>
                     <Grid container spacing={1} sx={{ paddingLeft: variant === "permanent" ? "80px" : "50px", height: "100%" }} alignItems="flex-end">

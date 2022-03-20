@@ -1,6 +1,7 @@
 import { Box, Grid, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import aboutMeImg from '../../../images/retrato.jpg';
 import panoramicAbout from '../../../images/panoramicAbout.jpg';
@@ -49,19 +50,11 @@ const AboutMe = () => {
                             alt="ChenchoMendoza"
                         />
                         <Typography sx={{ textAlign: "justify", fontSize: matchesSm ? 12 : 16 }}>
-                            A Estrada (1964)
-                            La fotografía siempre ha estado presente en mi vida. Mi madre tenía una sencilla Kodak instamatic con la jugaba a emular a mi vecino,
-                            el gran fotoperiodista coruñés Xosé Castro (Pepucho). Sentía una especial atracción cada vez que lo veía llegar con todo su equipo,
-                            me fascinaba tocar aquellas cámaras o verlo por algún rincón de la ciudad realizando su trabajo. Creo que fue él quien definitivamente
-                            marcó mi interés por esta afición.<br /><br />
-
-                            A la edad de 17 años conseguí mi primera cámara réflex, una sencilla Practika BX20 de fabricación rusa, con la que empecé a
-                            hacer mis primeras diapositivas y fotografías en blanco y negro. Cinco años mas tarde tuve la oportunidad de comenzar a
-                            trabajar realizando trabajos de estudio y fotografía social usando una cámara de formato medio Zenza Bronica y Nikon FM2.<br /><br />
-
-                            En la actualidad dedico mi tiempo libre a mostrar el patrimonio etnográfico y paisajístico principalmente de mi tierra (Galicia)
-                            y la fotografía sigue siendo mi gran afición que me ha acompañado a lo largo de los años, una válvula de escape con la que
-                            disfruto como el primer día.
+                            <FormattedMessage id="project.aboutme.text.first" />
+                            <br /><br />
+                            <FormattedMessage id="project.aboutme.text.second" />
+                            <br /><br />
+                            <FormattedMessage id="project.aboutme.text.third" />
                         </Typography>
                     </Box>
                 </div>
@@ -98,7 +91,7 @@ const AboutMe = () => {
                         />
                         <PhotoItem icon={tripodeIcon} items={["Vanguard Alta Pro 2 + 263AP"]} negativeMargin={true} />
                         <PhotoItem icon={flashIcon} items={["Flash Metz 58 AF1, Flas Metz 48 AF1", "Flash Gloxy TR 985N"]} />
-                        <PhotoItem icon={triggerIcon} items={["SMDV T803 Intervalometro", "Flash trigger Pixel Rook"]} />
+                        <PhotoItem icon={triggerIcon} items={["SMDV T803 Intervalometer", "Flash trigger Pixel Rook"]} />
                     </Grid>
                 </div>
             </Grid>
