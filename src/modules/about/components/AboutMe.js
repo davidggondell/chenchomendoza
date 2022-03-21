@@ -34,7 +34,7 @@ const AboutMe = () => {
     }
 
     return (
-        <Grid container justifyContent="center" sx={{ padding: 1, paddingBottom: 5, backgroundImage: "linear-gradient(to right, #FDFDFD, white)" }}>
+        <Grid container justifyContent="center" sx={{ padding: 1, paddingBottom: 5, backgroundImage: "linear-gradient(to right, #F9F9F9, white)" }}>
             <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
                 <div data-aos="fade-up" style={{ maxWidth: "700px" }}>
                     <Box>

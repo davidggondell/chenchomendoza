@@ -70,7 +70,7 @@ const ImageGrid = ({ galleryUrl }) => {
                 sx={{
                     minHeight: "101vh",
                     marginTop: matchesMd ? (0 + matchesMd + matchesSm) : 0,
-                    backgroundImage: "linear-gradient(to right, #FDFDFD, white)",
+                    backgroundImage: "linear-gradient(to right, #F9F9F9, white)",
                 }}
             >
                 {dialogOpen &&

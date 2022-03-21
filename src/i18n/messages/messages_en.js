@@ -1,11 +1,5 @@
 export default {
-
-    'project.app.Footer.text': 'Footer',
-    'project.app.Header.home': 'Home',
-    'project.app.Header.logout': 'Logout',
-    'project.app.Home.welcome': 'Wellcome',
-
-    'project.common.ErrorDialog.title': 'Error',
+    'project.header.menu': 'Menu',
 
     'project.navigation.home': 'HOME',
     'project.navigation.galleriesClosed': 'GALLERIES +',

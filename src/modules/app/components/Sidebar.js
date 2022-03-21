@@ -81,13 +81,13 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
                         width: sidebarWidth
                     }}
                 >
-                    <img src={logo} height="auto" width="100%" alt="logo" onClick={() => history.push("/inicio")} />
+                    <img src={logo} height="auto" width="100%" alt="logo" style={{ cursor: "pointer" }} onClick={() => history.push("/")} />
                 </Box>
                 <List component="nav" sx={{ paddingLeft: variant === "permanent" ? 10 : 6 }}>
                     <GalleryItem
                         text={<FormattedMessage id="project.navigation.home" />}
-                        action={() => history.push("/inicio")}
-                        direction="/inicio"
+                        action={() => history.push("/")}
+                        direction="/"
                     />
                     <GalleryItem
                         text={openGallery ? <FormattedMessage id="project.navigation.galleriesOpened" /> : <FormattedMessage id="project.navigation.galleriesClosed" />}

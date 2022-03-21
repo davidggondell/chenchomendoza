@@ -11,6 +11,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import StartLoader from './StartLoader';
+import ScrollToTop from '../../hooks/ScrollToTop';
 
 const App = () => {
     const useAppbar = useMediaQuery(theme.breakpoints.down('md'));
@@ -27,6 +28,7 @@ const App = () => {
     return (
         <React.StrictMode>
             <Router>
+                <ScrollToTop />
                 <ThemeProvider theme={theme}>
                     <CssBaseline>
                         <StartLoader />
