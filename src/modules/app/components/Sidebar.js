@@ -128,10 +128,10 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
                     <GalleryItem text={<FormattedMessage id="project.navigation.aboutme" />} action={() => history.push("/sobremi")} direction="/sobremi" />
                     <GalleryItem text={<FormattedMessage id="project.navigation.contact" />} action={() => history.push("/contacto")} direction="/contacto" />
                 </List>
-                <Box sx={{ height: "20%", width: sidebarWidth, display: "flex", alignItems: "flex-end" }}>
+                <Box sx={{ width: sidebarWidth, display: "flex", alignItems: "flex-end", paddingTop: "15%" }}>
                     <Grid container alignItems="flex-end" justifyContent="center">
                         <Grid item xs={12}>
-                            <Grid container spacing={1} sx={{ paddingLeft: variant === "permanent" ? "80px" : "50px" }}>
+                            <Grid container spacing={1} justifyContent="center">
                                 <IconButton size="large" onClick={() => window.open("https://www.instagram.com/chenchomendoza/", "_blank")}>
                                     <InstagramIcon fontSize="inherit" />
                                 </IconButton>
@@ -148,7 +148,7 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
-                            <Typography sx={{ padding: 1, textAlign: "center" }}>
+                            <Typography sx={{ padding: 1, textAlign: "center", fontSize: 12 }}>
                                 &copy; 2022 David García Gondell
                             </Typography>
                         </Grid>
