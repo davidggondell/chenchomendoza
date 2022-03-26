@@ -7,7 +7,7 @@ import { AboutMe, Contact } from '../../about';
 const Body = () => {
 
     return (
-        <Box>
+        <Box sx={{ overflowX: "hidden" }}>
             <Switch>
                 <Route exact path="/"><ImageGrid galleryUrl={"INICIO"} /></Route>
                 <Route exact path="/naturaleza"><ImageGrid galleryUrl={"NATURALEZA"} /></Route>

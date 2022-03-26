@@ -51,9 +51,6 @@ const App = () => {
                                 paddingTop: heightOffset + "px"
                             }}>
                             <Body />
-                            {
-                                //<Footer />
-                            }
                         </Box>
                     </CssBaseline>
                 </ThemeProvider>

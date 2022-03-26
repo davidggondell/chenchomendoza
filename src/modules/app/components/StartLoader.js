@@ -11,7 +11,7 @@ const StartLoader = () => {
         <React.Fragment>
             {loader &&
                 <Stack justifyContent="center" alignItems="center"
-                    onAnimationEnd={() => { setLoader(false); console.log("buenas") }}
+                    onAnimationEnd={() => { setLoader(false) }}
                     className='fade-out-start'
                     sx={{
                         position: "fixed",
@@ -22,7 +22,7 @@ const StartLoader = () => {
                         zIndex: 1201
                     }}
                 >
-                    <Typography className="zoom-in-text-start" sx={{ fontSize: matchesSm ? 40 : 60, textAlign: "center" }}>
+                    <Typography className="zoom-in-text-start" sx={{ fontSize: matchesSm ? 60 : 80, fontFamily: "Bebas Neue", textAlign: "center" }}>
                         <FormattedMessage id="project.startLoader.title" />
                     </Typography>
                     <img src={firma} alt="firma" className="zoom-in-text-start" style={{ maxWidth: "400px" }}></img>
