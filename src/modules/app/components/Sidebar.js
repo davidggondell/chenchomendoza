@@ -128,21 +128,30 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
                     <GalleryItem text={<FormattedMessage id="project.navigation.aboutme" />} action={() => history.push("/sobremi")} direction="/sobremi" />
                     <GalleryItem text={<FormattedMessage id="project.navigation.contact" />} action={() => history.push("/contacto")} direction="/contacto" />
                 </List>
-                <Box sx={{ height: "20%" }}>
-                    <Grid container spacing={1} sx={{ paddingLeft: variant === "permanent" ? "80px" : "50px", height: "100%" }} alignItems="flex-end">
-                        <IconButton size="large" onClick={() => window.open("https://www.instagram.com/chenchomendoza/", "_blank")}>
-                            <InstagramIcon fontSize="inherit" />
-                        </IconButton>
-                        <IconButton size="large" href="https://www.flickr.com/photos/chenchomendoza/" target="_blank">
-                            <Icon fontSize="inherit" height="100%" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                <img src={FlickrIcon} style={{ height: "80%", width: "80%", opacity: .54 }} alt="flickr" />
-                            </Icon>
-                        </IconButton>
-                        <IconButton size="large" href="https://500px.com/p/chenchomendoza" target="_blank">
-                            <Icon fontSize="inherit" height="100%" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                <img src={pxIcon} style={{ height: "80%", width: "80%", opacity: .54 }} alt="500px" />
-                            </Icon>
-                        </IconButton>
+                <Box sx={{ height: "20%", width: sidebarWidth, display: "flex", alignItems: "flex-end" }}>
+                    <Grid container alignItems="flex-end" justifyContent="center">
+                        <Grid item xs={12}>
+                            <Grid container spacing={1} sx={{ paddingLeft: variant === "permanent" ? "80px" : "50px" }}>
+                                <IconButton size="large" onClick={() => window.open("https://www.instagram.com/chenchomendoza/", "_blank")}>
+                                    <InstagramIcon fontSize="inherit" />
+                                </IconButton>
+                                <IconButton size="large" href="https://www.flickr.com/photos/chenchomendoza/" target="_blank">
+                                    <Icon fontSize="inherit" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                        <img src={FlickrIcon} style={{ height: "80%", width: "80%", opacity: .54 }} alt="flickr" />
+                                    </Icon>
+                                </IconButton>
+                                <IconButton size="large" href="https://500px.com/p/chenchomendoza" target="_blank">
+                                    <Icon fontSize="inherit" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                        <img src={pxIcon} style={{ height: "80%", width: "80%", opacity: .54 }} alt="500px" />
+                                    </Icon>
+                                </IconButton>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography sx={{ padding: 1, textAlign: "center" }}>
+                                &copy; 2022 David García Gondell
+                            </Typography>
+                        </Grid>
                     </Grid>
                 </Box>
             </Stack>

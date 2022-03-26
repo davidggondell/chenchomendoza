@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import React from 'react';
-import firma from '../../../images/firma.jpg';
+import firma from '../../../images/firma.png';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { FormattedMessage } from 'react-intl';
 
