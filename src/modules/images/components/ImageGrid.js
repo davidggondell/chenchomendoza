@@ -108,7 +108,7 @@ const ImageGrid = ({ galleryUrl }) => {
                                                 } : { cursor: "pointer", }}
                                             >
                                                 <Fade in={true} sx={{ width: "100%", height: "100%" }} timeout={1500}>
-                                                    <img width="100%" src={image.src} alt={"image" + i + j} />
+                                                    <img width="100%" src={image.src} alt={image.name} />
                                                 </Fade>
                                             </Box>
                                         </Grid>
