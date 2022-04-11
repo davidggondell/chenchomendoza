@@ -61,8 +61,8 @@ const Contact = () => {
                                     <Typography sx={{ fontFamily: "Bebas Neue", fontSize: 20, marginBottom: "14px" }}>
                                         <FormattedMessage id="project.contact.personalEmail" />
                                     </Typography>
-                                    <a href="mailto:chenchomendoza@mundo-r.com" style={{ color: "black", opacity: .54 }}>
-                                        chenchomendoza@mundo-r.com
+                                    <a href="mailto:mendoza@mundo-r.com" style={{ color: "black", opacity: .54 }}>
+                                        mendoza@mundo-r.com
                                     </a>
                                 </Box>
                             </Grid>
