@@ -1,10 +1,11 @@
-import { Box, Grid, CircularProgress, Fade } from '@mui/material';
+import { Box, Grid, CircularProgress, Fade, Alert } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
 import { ImageCaroussel } from './ImageCaroussel';
+import { FormattedMessage } from 'react-intl';
 
 const ImageGrid = ({ galleryUrl }) => {
     const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const ImageGrid = ({ galleryUrl }) => {
     const images = useSelector(selectors.getImages);
     const [initImage, setInitImage] = React.useState(0);
     const [dialogOpen, setDialogOpen] = React.useState(false);
+    const [getImagesError, setGetImagesError] = React.useState("");
 
     const getImageGallery = (images, numrows) => {
         var imageGallery = [];
@@ -56,9 +58,39 @@ const ImageGrid = ({ galleryUrl }) => {
         })
         return empty;
     }
+    
+    const getAlert = (imageError) => {
+        if (imageError === "empty") {
+            return (
+                <Alert severity="warning">
+                    <FormattedMessage id="project.error.emptyGallery" />
+                </Alert>
+            )
+        } else {
+            return (
+                <Alert severity="error">
+                    <FormattedMessage id="project.error.galleryError" />
+                    {getImagesError}
+                </Alert>
+            )
+        }
+    }
+
+    const getLoaderOrError = () =>
+        <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "100vh" }}>
+            {getImagesError === "" ?
+                <CircularProgress color="inherit" />
+                :
+                getAlert(getImagesError)
+            }
+        </Box>
+            
+            
 
     useEffect(() => {
-        dispatch(actions.getAllImages(galleryUrl));
+        dispatch(actions.getAllImages(galleryUrl, (error) => {
+            setGetImagesError(error)
+        }));
     }, [dispatch, galleryUrl]);
 
     const gallery = getImageGallery(images.list, columns);
@@ -82,9 +114,7 @@ const ImageGrid = ({ galleryUrl }) => {
                     />
                 }
                 {emptyGallery ?
-                    <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "100vh" }}>
-                        <CircularProgress color="inherit" />
-                    </Box>
+                    getLoaderOrError()
                     :
                     <Grid container spacing={photoSpacing} sx={{ padding: photoSpacing, paddingRight: matchesMd ? 1 : 8, paddingLeft: matchesMd ? 1 : 8 }}>
                         {gallery.map((column, i) => (

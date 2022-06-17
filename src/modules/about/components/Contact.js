@@ -76,15 +76,47 @@ const Contact = () => {
                                         <FormattedMessage id="project.contact.socialMedia" />
                                     </Typography>
                                     <Grid container spacing={1}>
-                                        <IconButton size="large" onClick={() => window.open("https://www.instagram.com/chenchomendoza/", "_blank")}>
+                                        <IconButton
+                                            sx={{
+                                                transition: "all 0.5s",
+                                                WebkitTransition: "all 0.5s",
+                                                '&:hover': {
+                                                    transform: "scale(1.2)"
+                                                }
+                                            }}
+                                            size="large" 
+                                            onClick={() => window.open("https://www.instagram.com/chenchomendoza/", "_blank")}
+                                        >
                                             <InstagramIcon fontSize="inherit" />
                                         </IconButton>
-                                        <IconButton size="large" href="https://www.flickr.com/photos/chenchomendoza/" target="_blank">
+                                        <IconButton 
+                                            size="large" 
+                                            href="https://www.flickr.com/photos/chenchomendoza/" 
+                                            target="_blank"
+                                            sx={{
+                                                transition: "all 0.5s",
+                                                WebkitTransition: "all 0.5s",
+                                                '&:hover': {
+                                                    transform: "scale(1.2)"
+                                                }
+                                            }}
+                                        >
                                             <Icon fontSize="inherit" height="100%" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                                 <img src={FlickrIcon} style={{ height: "80%", width: "80%", opacity: .54 }} alt="flickr" />
                                             </Icon>
                                         </IconButton>
-                                        <IconButton size="large" href="https://500px.com/p/chenchomendoza" target="_blank">
+                                        <IconButton 
+                                            size="large" 
+                                            href="https://500px.com/p/chenchomendoza" 
+                                            target="_blank"
+                                            sx={{
+                                                transition: "all 0.5s",
+                                                WebkitTransition: "all 0.5s",
+                                                '&:hover': {
+                                                    transform: "scale(1.2)"
+                                                }
+                                            }}
+                                        >
                                             <Icon fontSize="inherit" height="100%" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                                 <img src={pxIcon} style={{ height: "80%", width: "80%", opacity: .54 }} alt="500px" />
                                             </Icon>

@@ -132,16 +132,50 @@ const Sidebar = ({ open, toogle, variant, sidebarWidth }) => {
                     <Grid container alignItems="flex-end" justifyContent="center">
                         <Grid item xs={12}>
                             <Grid container spacing={1} justifyContent="center">
-                                <IconButton size="large" onClick={() => window.open("https://www.instagram.com/chenchomendoza/", "_blank")}>
+                                <IconButton 
+                                    sx={{
+                                        transition: "all 0.5s",
+                                        WebkitTransition: "all 0.5s",
+                                        '&:hover': {
+                                            transform: "scale(1.2)"
+                                        },
+                                    }} 
+                                    size="large" 
+                                    onClick={() => window.open("https://www.instagram.com/chenchomendoza/", "_blank")}
+                                >
                                     <InstagramIcon fontSize="inherit" />
                                 </IconButton>
                                 <IconButton size="large" href="https://www.flickr.com/photos/chenchomendoza/" target="_blank">
-                                    <Icon fontSize="inherit" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <Icon 
+                                        fontSize="inherit" 
+                                        sx={{ 
+                                            display: "flex", 
+                                            justifyContent: "center", 
+                                            alignItems: "center",
+                                            transition: "all 0.5s",
+                                            WebkitTransition: "all 0.5s",
+                                            '&:hover': {
+                                                transform: "scale(1.2)"
+                                            }
+                                        }}
+                                    >
                                         <img src={FlickrIcon} style={{ height: "80%", width: "80%", opacity: .54 }} alt="flickr" />
                                     </Icon>
                                 </IconButton>
                                 <IconButton size="large" href="https://500px.com/p/chenchomendoza" target="_blank">
-                                    <Icon fontSize="inherit" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <Icon 
+                                        fontSize="inherit" 
+                                        sx={{ 
+                                            display: "flex", 
+                                            justifyContent: "center", 
+                                            alignItems: "center",
+                                            transition: "all 0.5s",
+                                            WebkitTransition: "all 0.5s",
+                                            '&:hover': {
+                                                transform: "scale(1.2)"
+                                            }
+                                        }}
+                                    >
                                         <img src={pxIcon} style={{ height: "80%", width: "80%", opacity: .54 }} alt="500px" />
                                     </Icon>
                                 </IconButton>

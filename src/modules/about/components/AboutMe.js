@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, Chip } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -32,6 +32,21 @@ const AboutMe = () => {
             </Grid>
         );
     }
+
+    const RoundText = ({textId}) => {
+        
+        return (
+          <Grid item>
+            <Box sx={{border: 1, borderRadius: 4, padding: 1, maxWidth: "230px", height: "100%"}}>
+                <Box sx={{height: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>            
+                    <Typography align="center" sx={{fontSize: 11}}>
+                        <FormattedMessage id={textId} />
+                    </Typography>
+                </Box>
+            </Box>
+          </Grid>
+        )
+      }
 
     return (
         <Grid container justifyContent="center" sx={{ padding: 1, paddingBottom: 5, backgroundImage: "linear-gradient(to right, #F9F9F9, white)", overflow: "hidden" }}>
@@ -69,7 +84,7 @@ const AboutMe = () => {
             <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
                 <div data-aos="fade-up" style={{ maxWidth: "700px" }}>
                     <Typography variant="h4" sx={{ fontFamily: "Bebas Neue", marginTop: 4, textAlign: "center" }}>
-                        Equipo
+                        <FormattedMessage id="project.aboutme.equipment" />
                     </Typography>
                     <Grid container justifyContent="center">
                         <PhotoItem icon={cameraIcon} items={["Nikon D850", "Nikon D600", "Nikon D300"]} />
@@ -92,6 +107,43 @@ const AboutMe = () => {
                         <PhotoItem icon={tripodeIcon} items={["Vanguard Alta Pro 2 + 263AP"]} negativeMargin={true} />
                         <PhotoItem icon={flashIcon} items={["Flash Metz 58 AF1, Flas Metz 48 AF1", "Flash Gloxy TR 985N"]} />
                         <PhotoItem icon={triggerIcon} items={["SMDV T803 Intervalometer", "Flash trigger Pixel Rook"]} />
+                    </Grid>
+                </div>
+            </Grid>
+
+            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+                <div data-aos="fade-up" style={{ maxWidth: "700px" }}>
+                    <Typography variant="h4" sx={{ fontFamily: "Bebas Neue", marginTop: 6, textAlign: "center" }}>
+                        <FormattedMessage id="project.aboutme.exposandawards" />
+                    </Typography>
+                        <Grid sx={{marginTop: 2}} container spacing={1} justifyContent="center">
+                            <RoundText textId="project.aboutme.award1"/>
+                            <RoundText textId="project.aboutme.award2"/>
+                            <RoundText textId="project.aboutme.award3"/>
+                            <RoundText textId="project.aboutme.award4"/>
+                            <RoundText textId="project.aboutme.award5"/>
+                            <RoundText textId="project.aboutme.award6"/>
+                            <RoundText textId="project.aboutme.award7"/>
+                            <RoundText textId="project.aboutme.award8"/>
+                            <RoundText textId="project.aboutme.award9"/>
+                            <RoundText textId="project.aboutme.award10"/>
+                        </Grid>
+                </div>
+            </Grid>
+
+            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+                <div data-aos="fade-up" style={{ maxWidth: "700px" }}>
+                    <Typography variant="h4" sx={{ fontFamily: "Bebas Neue", marginTop: 6, textAlign: "center" }}>
+                        <FormattedMessage id="project.aboutme.publications" />
+                    </Typography>
+                    <Grid sx={{marginTop: 2, paddingBottom: 10}} container spacing={1} justifyContent="center">
+                        <RoundText textId="project.aboutme.publication1"/>
+                        <RoundText textId="project.aboutme.publication2"/>
+                        <RoundText textId="project.aboutme.publication3"/>
+                        <RoundText textId="project.aboutme.publication4"/>
+                        <RoundText textId="project.aboutme.publication5"/>
+                        <RoundText textId="project.aboutme.publication6"/>
+                        <RoundText textId="project.aboutme.publication7"/>
                     </Grid>
                 </div>
             </Grid>
