@@ -1,22 +1,23 @@
 .fade-out-start {
-    animation: fadeOut 4s;
-    -webkit-animation: fadeOut 4s;
-    -moz-animation: fadeOut 4s;
-    -o-animation: fadeOut 4s;
-    -ms-animation: fadeOut 4s;
+    animation: fadeOut 8s;
+    -webkit-animation: fadeOut 8s;
+    -moz-animation: fadeOut 8s;
+    -o-animation: fadeOut 8s;
+    -ms-animation: fadeOut 8s;
 }
 @keyframes fadeOut {
-    0% {opacity:1;}
-    50% {opacity:1;}
-    100% {opacity: 0;}
+    0% {opacity:1; filter: brightness(0%)}
+    35% {opacity:1; filter: brightness(100%)}
+    80% {opacity: 0; filter: brightness(100%)}
+    100% {opacity: 0; filter: brightness(100%)}
 }
 
 .zoom-in-text-start {
-    animation: zoomInText 4s;
-    -webkit-animation: zoomInText 4s;
-    -moz-animation: zoomInText 4s;
-    -o-animation: zoomInText 4s;
-    -ms-animation: zoomInText 4s;
+    animation: zoomInText 6s;
+    -webkit-animation: zoomInText 6s;
+    -moz-animation: zoomInText 6s;
+    -o-animation: zoomInText 6s;
+    -ms-animation: zoomInText 6s;
 }
 
 @keyframes zoomInText {

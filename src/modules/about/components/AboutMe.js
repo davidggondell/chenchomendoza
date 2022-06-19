@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Chip } from '@mui/material';
+import { Box, Grid, Typography} from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -14,8 +14,6 @@ import triggerIcon from '../../../images/triggerIcon.png';
 
 const AboutMe = () => {
     const matchesSm = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const matchesMd = useMediaQuery((theme) => theme.breakpoints.down('md'));
-    console.log(matchesMd)
 
     const PhotoItem = ({ icon, items, negativeMargin }) => {
         const margin = negativeMargin ? "-6px" : "auto"

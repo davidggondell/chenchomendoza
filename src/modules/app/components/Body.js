@@ -1,10 +1,19 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { ImageGrid } from '../../images';
 import { AboutMe, Contact } from '../../about';
 
 const Body = () => {
+    const [firstLoad, setFirstLoad] = React.useState(true)
+    const history = useHistory();
+
+    useEffect(() => {
+        if (firstLoad) {
+            history.replace("/")
+        }
+        setFirstLoad(false)
+    }, [history, firstLoad])
 
     return (
         <Box sx={{ overflowX: "hidden" }}>

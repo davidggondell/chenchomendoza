@@ -101,7 +101,7 @@ export const ImageCaroussel = ({ open, onClose, images, initImage }) => {
                 {dialogImage !== null && dialogImage !== undefined &&
                     <Box backgroundColor="#282828" height="100%" width="100%"
                         sx={{
-                            position: "fixed",
+                            position: "sticky",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
@@ -143,7 +143,7 @@ export const ImageCaroussel = ({ open, onClose, images, initImage }) => {
                                     </Grid>
                                 }
                                 <Grid item xs={smallScreen ? 12 : 10} sx={{
-                                    maxWidth: "90vh", height: "90vh",
+                                    maxWidth: "90vh", minHeight: "80vh", maxHeight: "90vh",
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center"
