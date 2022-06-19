@@ -87,7 +87,7 @@ const AboutMe = () => {
                         <FormattedMessage id="project.aboutme.equipment" />
                     </Typography>
                     <Grid container justifyContent="center">
-                        <PhotoItem icon={cameraIcon} items={["Nikon D850", "Nikon D600", "Nikon D300"]} />
+                        <PhotoItem icon={cameraIcon} items={["Nikon D850", "Nikon D610", "Nikon D300"]} />
                         <PhotoItem icon={objectiveIcon}
                             items={["Tamron 15-30 F2.8 Di VC",
                                 "Tamron 24-70 2.8 VC USD",
