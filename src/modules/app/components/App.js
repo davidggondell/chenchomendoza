@@ -12,6 +12,8 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import StartLoader from './StartLoader';
 import ScrollToTop from '../../hooks/ScrollToTop';
+import firma from '../../../images/firmaBlanca.png';
+import bosqueIntro from '../../../images/bosqueIntro.jpg';
 
 const App = () => {
     const useAppbar = useMediaQuery(theme.breakpoints.down('md'));
@@ -23,6 +25,10 @@ const App = () => {
 
     useEffect(() => {
         Aos.init({ duration: 750 })
+        const imagesPreload = [firma, bosqueIntro];
+        imagesPreload.forEach((image) => {
+            new Image().src = image
+        });
     }, [])
 
     return (
