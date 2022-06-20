@@ -1,14 +1,15 @@
 .fade-out-start {
-    animation: fadeOut 8s;
-    -webkit-animation: fadeOut 8s;
-    -moz-animation: fadeOut 8s;
-    -o-animation: fadeOut 8s;
-    -ms-animation: fadeOut 8s;
+    animation: fadeOut 7s;
+    -webkit-animation: fadeOut 7s;
+    -moz-animation: fadeOut 7s;
+    -o-animation: fadeOut 7s;
+    -ms-animation: fadeOut 7s;
 }
 @keyframes fadeOut {
     0% {opacity:1; filter: brightness(0%)}
     35% {opacity:1; filter: brightness(100%)}
-    80% {opacity: 0; filter: brightness(100%)}
+    65% {opacity: 1; filter: brightness(100%)}
+    90% {opacity: 0; filter: brightness(100%)}
     100% {opacity: 0; filter: brightness(100%)}
 }
 
