@@ -65,7 +65,7 @@ export default {
     "Todas las fotógrafías contenidas en esta web y los derechos sobre las mismas son de la exclusiva propiedad de su autor." +
     " Queda prohibida la reproducción total o parcial, difusión o comunicación pública sin la autorizacíon del mismo.",
   "project.contact.legalInfoTextSecond":
-    "Si estas interesado en alguna de mis imágenes puedes contactar conmigo a través de mi dirección de correo electrónico.",
+    "Si estás interesado en alguna de mis imágenes puedes contactar conmigo a través de mi dirección de correo electrónico.",
   "project.contact.personalEmail": "Email personal",
   "project.contact.socialMedia": "Redes sociales",
 
