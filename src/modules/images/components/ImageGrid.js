@@ -1,11 +1,11 @@
-import { Box, Grid, CircularProgress, Fade, Alert } from "@mui/material";
+import { Alert, Box, CircularProgress, Fade, Grid } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React, { useEffect } from "react";
+import { FormattedMessage } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../actions";
 import * as selectors from "../selectors";
 import { ImageCaroussel } from "./ImageCaroussel";
-import { FormattedMessage } from "react-intl";
 
 const ImageGrid = ({ galleryUrl }) => {
   const dispatch = useDispatch();
