@@ -1,6 +1,6 @@
-# chenchomendoza
+# Chencho Mendoza Fotografía
 
-ChenchoMendoza, pagina web de fotografia hecha con React y MaterialUI. Las fotografías se obtienen directamente de Firebase Storage, lo que permite un almacenamiento gratuito si no se excede el límite de transferencia de datos.
+Chencho Mendoza, pagina web de fotografia hecha con React y MaterialUI. Las fotografías se obtienen directamente de Firebase Storage, lo que permite un almacenamiento gratuito si no se excede el límite de transferencia de datos.
 
 ## Ejecución
 
