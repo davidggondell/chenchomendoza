@@ -91,11 +91,8 @@ const Contact = () => {
                   >
                     <FormattedMessage id="project.contact.personalEmail" />
                   </Typography>
-                  <a
-                    href="mailto:mendoza@mundo-r.com"
-                    style={{ color: "black", opacity: 0.54 }}
-                  >
-                    mendoza@mundo-r.com
+                  <a href="mailto:chenchomendoza64@gmail.com" style={{ color: "black", opacity: 0.54 }}>
+                    chenchomendoza64@gmail.com
                   </a>
                 </Box>
               </Grid>
@@ -124,12 +121,7 @@ const Contact = () => {
                         },
                       }}
                       size="large"
-                      onClick={() =>
-                        window.open(
-                          "https://www.instagram.com/chenchomendoza/",
-                          "_blank"
-                        )
-                      }
+                      onClick={() => window.open("https://www.instagram.com/chenchomendoza/", "_blank")}
                     >
                       <InstagramIcon fontSize="inherit" />
                     </IconButton>
@@ -154,11 +146,7 @@ const Contact = () => {
                           alignItems: "center",
                         }}
                       >
-                        <img
-                          src={FlickrIcon}
-                          style={{ height: "80%", width: "80%", opacity: 0.54 }}
-                          alt="flickr"
-                        />
+                        <img src={FlickrIcon} style={{ height: "80%", width: "80%", opacity: 0.54 }} alt="flickr" />
                       </Icon>
                     </IconButton>
                     <IconButton
@@ -182,11 +170,7 @@ const Contact = () => {
                           alignItems: "center",
                         }}
                       >
-                        <img
-                          src={pxIcon}
-                          style={{ height: "80%", width: "80%", opacity: 0.54 }}
-                          alt="500px"
-                        />
+                        <img src={pxIcon} style={{ height: "80%", width: "80%", opacity: 0.54 }} alt="500px" />
                       </Icon>
                     </IconButton>
                   </Grid>
