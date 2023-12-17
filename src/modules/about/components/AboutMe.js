@@ -20,11 +20,7 @@ const AboutMe = () => {
     return (
       <Grid item xs={12} md={6} sx={{ padding: 1, paddingTop: 3 }}>
         <Box sx={{ width: "100%", marginLeft: margin, marginBottom: 2 }}>
-          <img
-            src={icon}
-            style={{ width: "60px", display: "block", margin: "auto" }}
-            alt="Icon"
-          />
+          <img src={icon} style={{ width: "60px", display: "block", margin: "auto" }} alt="Icon" />
         </Box>
         {items.map((item, i) => (
           <Typography key={i} sx={{ textAlign: "center", fontSize: 14 }}>
@@ -98,9 +94,7 @@ const AboutMe = () => {
               }}
               alt="ChenchoMendoza"
             />
-            <Typography
-              sx={{ textAlign: "justify", fontSize: matchesSm ? 12 : 16 }}
-            >
+            <Typography sx={{ textAlign: "justify", fontSize: matchesSm ? 12 : 16 }}>
               <FormattedMessage id="project.aboutme.text.first" />
               <br />
               <br />
@@ -115,27 +109,17 @@ const AboutMe = () => {
       <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
         <div data-aos="fade-up" style={{ maxWidth: "700px" }}>
           <Box sx={{ marginTop: 5 }}>
-            <img
-              src={panoramicAbout}
-              style={{ width: "100%" }}
-              alt="ChenchoMendoza"
-            />
+            <img src={panoramicAbout} style={{ width: "100%" }} alt="ChenchoMendoza" />
           </Box>
         </div>
       </Grid>
       <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
         <div data-aos="fade-up" style={{ maxWidth: "700px" }}>
-          <Typography
-            variant="h4"
-            sx={{ fontFamily: "Bebas Neue", marginTop: 4, textAlign: "center" }}
-          >
+          <Typography variant="h4" sx={{ fontFamily: "Bebas Neue", marginTop: 4, textAlign: "center" }}>
             <FormattedMessage id="project.aboutme.equipment" />
           </Typography>
           <Grid container justifyContent="center">
-            <PhotoItem
-              icon={cameraIcon}
-              items={["Nikon D850", "Nikon D610", "Nikon D300"]}
-            />
+            <PhotoItem icon={cameraIcon} items={["Nikon D850", "Nikon D610", "Nikon D300"]} />
             <PhotoItem
               icon={objectiveIcon}
               items={[
@@ -155,40 +139,19 @@ const AboutMe = () => {
                 "Haida Magnetic Nano coating CPL M15",
               ]}
             />
-            <PhotoItem
-              icon={tripodeIcon}
-              items={["Vanguard Alta Pro 2 + 263AP"]}
-              negativeMargin={true}
-            />
-            <PhotoItem
-              icon={flashIcon}
-              items={[
-                "Flash Metz 58 AF1, Flas Metz 48 AF1",
-                "Flash Gloxy TR 985N",
-              ]}
-            />
-            <PhotoItem
-              icon={triggerIcon}
-              items={["SMDV T803 Intervalometer", "Flash trigger Pixel Rook"]}
-            />
+            <PhotoItem icon={tripodeIcon} items={["Benro Tortoise CLV"]} negativeMargin={true} />
+            <PhotoItem icon={flashIcon} items={["Flash Metz 58 AF1, Flas Metz 48 AF1", "Flash Gloxy TR 985N"]} />
+            <PhotoItem icon={triggerIcon} items={["SMDV T803 Intervalometer", "Flash trigger Pixel Rook"]} />
           </Grid>
         </div>
       </Grid>
 
       <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
         <div data-aos="fade-up" style={{ maxWidth: "700px" }}>
-          <Typography
-            variant="h4"
-            sx={{ fontFamily: "Bebas Neue", marginTop: 6, textAlign: "center" }}
-          >
+          <Typography variant="h4" sx={{ fontFamily: "Bebas Neue", marginTop: 6, textAlign: "center" }}>
             <FormattedMessage id="project.aboutme.exposandawards" />
           </Typography>
-          <Grid
-            sx={{ marginTop: 2 }}
-            container
-            spacing={1}
-            justifyContent="center"
-          >
+          <Grid sx={{ marginTop: 2 }} container spacing={1} justifyContent="center">
             <RoundText textId="project.aboutme.award1" />
             <RoundText textId="project.aboutme.award2" />
             <RoundText textId="project.aboutme.award3" />
@@ -205,18 +168,10 @@ const AboutMe = () => {
 
       <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
         <div data-aos="fade-up" style={{ maxWidth: "700px" }}>
-          <Typography
-            variant="h4"
-            sx={{ fontFamily: "Bebas Neue", marginTop: 6, textAlign: "center" }}
-          >
+          <Typography variant="h4" sx={{ fontFamily: "Bebas Neue", marginTop: 6, textAlign: "center" }}>
             <FormattedMessage id="project.aboutme.publications" />
           </Typography>
-          <Grid
-            sx={{ marginTop: 2, paddingBottom: 10 }}
-            container
-            spacing={1}
-            justifyContent="center"
-          >
+          <Grid sx={{ marginTop: 2, paddingBottom: 10 }} container spacing={1} justifyContent="center">
             <RoundText textId="project.aboutme.publication1" />
             <RoundText textId="project.aboutme.publication2" />
             <RoundText textId="project.aboutme.publication3" />

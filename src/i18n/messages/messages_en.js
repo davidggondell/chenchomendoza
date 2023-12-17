@@ -20,7 +20,7 @@ export default {
     " attraction every time I saw him arrive with all his photographic equipment. I loved touching those cameras or watching him at any" +
     " corner of our city doing his job. I definitely think that it was him who marked my interest in this hobby.",
   "project.aboutme.text.second":
-    "When I was 17 years old, I got my first reflex camera, a simple Russian-made Practika" +
+    "When I was 17 years old, I got my first reflex camera, a simple Russian-made Praktica" +
     " BX20 with which I started making slides and photographs in black and white. Five years later, I had the opportunity" +
     " to start working doing studio reports and social photography using a medium format camera Zenza Bronica and a reflex Nikon FM2.",
   "project.aboutme.text.third":
