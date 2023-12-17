@@ -20,7 +20,7 @@ export default {
     " Me fascinaba tocar aquellas cámaras o verlo por algún rincón de la ciudad realizando su trabajo. Creo que fue él quien, definitivamente," +
     " marcó mi interés por esta afición.",
   "project.aboutme.text.second":
-    "A la edad de 17 años conseguí mi primera cámara réflex, una sencilla Practika BX20 de fabricación rusa," +
+    "A la edad de 17 años conseguí mi primera cámara réflex, una sencilla Praktica BX20 de fabricación rusa," +
     " con la que empecé a hacer mis primeras diapositivas y fotografías en blanco y negro. Cinco años más tarde, tuve la oportunidad de comenzar" +
     " a trabajar realizando reportajes de estudio y fotografía social usando una cámara de formato medio Zenza Bronica y una reflex Nikon FM2.",
   "project.aboutme.text.third":

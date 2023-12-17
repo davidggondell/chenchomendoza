@@ -5,8 +5,8 @@
   "private": true,
   "homepage": ".",
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider build start",
-    "build": "react-scripts --openssl-legacy-provider build build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
