@@ -1,0 +1,51 @@
+@use 'variables' as *;
+
+// Typography Styles
+body {
+  font-family: $font-family-body;
+  font-size: 15px;
+  line-height: 1.6;
+  color: $color-text-main;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .font-title {
+  font-family: $font-family-title;
+  letter-spacing: 1.5px;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.font-bebas {
+  font-family: $font-family-title;
+}
+
+.font-sans {
+  font-family: $font-family-body;
+}
+
+.title-xl {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.title-lg {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.title-md {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.title-sm {
+  font-size: 1.35rem;
+}
+
+.nav-link-text {
+  font-size: 14px;
+  letter-spacing: 2.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+}

@@ -1,0 +1,52 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'typography' as *;
+@use 'animations' as *;
+@use 'utilities' as *;
+
+// CSS Reset & Global Base
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background-color: #000000;
+  color: $color-text-main;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  @include button-reset;
+}
+
+// Global Custom Scrollbar
+@include custom-scrollbar;
+
+// Glassmorphic Card Helper
+.glass-panel {
+  @include glassmorphism;
+  border-radius: 1rem;
+  box-shadow: $shadow-md;
+}
+
+.glass-panel-dark {
+  @include glassmorphism($gradient-dark-glass, 20px, $color-border-dark);
+  color: $color-text-light;
+  border-radius: 1rem;
+  box-shadow: $shadow-elevated;
+}
