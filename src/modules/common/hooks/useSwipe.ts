@@ -1,4 +1,4 @@
-import { useState, type TouchEvent } from 'react';
+import { useRef, type TouchEvent } from "react";
 
 interface SwipeInput {
   onSwipeLeft?: () => void;
@@ -6,34 +6,46 @@ interface SwipeInput {
   minSwipeDistance?: number;
 }
 
-export const useSwipe = ({
-  onSwipeLeft,
-  onSwipeRight,
-  minSwipeDistance = 50,
-}: SwipeInput) => {
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+export const useSwipe = ({ onSwipeLeft, onSwipeRight, minSwipeDistance = 50 }: SwipeInput) => {
+  const touchStartRef = useRef<number | null>(null);
+  const touchEndRef = useRef<number | null>(null);
 
   const onTouchStart = (e: TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    const x = e.targetTouches[0]?.clientX ?? null;
+    touchStartRef.current = x;
+    touchEndRef.current = x;
   };
 
   const onTouchMove = (e: TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    const x = e.targetTouches[0]?.clientX;
+    if (x !== undefined) {
+      touchEndRef.current = x;
+    }
   };
 
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
+  const resetTouch = () => {
+    touchStartRef.current = null;
+    touchEndRef.current = null;
+  };
 
-    if (isLeftSwipe && onSwipeLeft) {
-      onSwipeLeft();
-    }
-    if (isRightSwipe && onSwipeRight) {
-      onSwipeRight();
+  const onTouchEnd = (e?: TouchEvent) => {
+    const start = touchStartRef.current;
+    const changedX = e?.changedTouches?.[0]?.clientX;
+    const end = changedX !== undefined ? changedX : touchEndRef.current;
+    resetTouch();
+
+    if (start === null || end === null) return;
+
+    const distance = start - end;
+    if (Math.abs(distance) > minSwipeDistance) {
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+      if (distance > minSwipeDistance && onSwipeLeft) {
+        onSwipeLeft();
+      } else if (distance < -minSwipeDistance && onSwipeRight) {
+        onSwipeRight();
+      }
     }
   };
 
@@ -41,5 +53,6 @@ export const useSwipe = ({
     onTouchStart,
     onTouchMove,
     onTouchEnd,
+    onTouchCancel: resetTouch,
   };
 };

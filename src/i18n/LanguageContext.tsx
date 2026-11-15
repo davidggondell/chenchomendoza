@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import type { Language } from '../types';
-import { es, type MessageKey } from './messages/es';
-import { gl } from './messages/gl';
-import { en } from './messages/en';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import type { Language } from "../types";
+import { es, type MessageKey } from "./messages/es";
+import { gl } from "./messages/gl";
+import { en } from "./messages/en";
 
 interface LanguageContextType {
   language: Language;
@@ -19,19 +19,19 @@ const dictionaries: Record<Language, Record<MessageKey, string>> = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 const detectDefaultLanguage = (): Language => {
-  if (typeof window === 'undefined') return 'es';
+  if (typeof window === "undefined") return "es";
 
-  const saved = localStorage.getItem('app_language') as Language;
-  if (saved && (saved === 'es' || saved === 'gl' || saved === 'en')) {
+  const saved = localStorage.getItem("app_language") as Language;
+  if (saved && (saved === "es" || saved === "gl" || saved === "en")) {
     return saved;
   }
 
-  const browserLang = (navigator.language || '').toLowerCase();
-  if (browserLang.startsWith('gl')) return 'gl';
-  if (browserLang.startsWith('es')) return 'es';
-  if (browserLang.startsWith('en')) return 'en';
+  const browserLang = (navigator.language || "").toLowerCase();
+  if (browserLang.startsWith("gl")) return "gl";
+  if (browserLang.startsWith("es")) return "es";
+  if (browserLang.startsWith("en")) return "en";
 
-  return 'es';
+  return "es";
 };
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -40,7 +40,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     try {
-      localStorage.setItem('app_language', lang);
+      localStorage.setItem("app_language", lang);
       document.documentElement.lang = lang;
     } catch {
       // Ignore storage errors in private browsing
@@ -66,7 +66,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 export const useLanguage = (): LanguageContextType => {
   const context = useContext(LanguageContext);
   if (!context) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
+    throw new Error("useLanguage must be used within a LanguageProvider");
   }
   return context;
 };

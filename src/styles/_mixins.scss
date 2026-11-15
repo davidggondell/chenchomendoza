@@ -1,18 +1,18 @@
-@use 'variables' as *;
+@use "variables" as *;
 
 // Responsive Breakpoint Mixins
 @mixin respond-to($breakpoint) {
-  @if $breakpoint == 'sm' {
+  @if $breakpoint == "sm" {
     @media (max-width: #{$bp-sm}) { @content; }
-  } @else if $breakpoint == 'md' {
+  } @else if $breakpoint == "md" {
     @media (max-width: #{$bp-md}) { @content; }
-  } @else if $breakpoint == 'lg' {
+  } @else if $breakpoint == "lg" {
     @media (max-width: #{$bp-lg}) { @content; }
-  } @else if $breakpoint == 'xl' {
+  } @else if $breakpoint == "xl" {
     @media (max-width: #{$bp-xl}) { @content; }
-  } @else if $breakpoint == 'desktop-up' {
+  } @else if $breakpoint == "desktop-up" {
     @media (min-width: #{$bp-md + 1px}) { @content; }
-  } @else if $breakpoint == 'lg-up' {
+  } @else if $breakpoint == "lg-up" {
     @media (min-width: #{$bp-lg + 1px}) { @content; }
   } @else {
     @media (max-width: #{$breakpoint}) { @content; }
@@ -46,20 +46,35 @@
 }
 
 // Custom Smooth Scrollbar
-@mixin custom-scrollbar($width: 6px, $thumb-color: rgba(0, 0, 0, 0.2), $track-color: transparent) {
+@mixin custom-scrollbar(
+  $width: 8px,
+  $thumb-color: rgba(0, 0, 0, 0.38),
+  $thumb-hover: rgba(0, 0, 0, 0.68),
+  $thumb-active: #1a1a1a,
+  $track-color: transparent
+) {
   &::-webkit-scrollbar {
     width: $width;
     height: $width;
+  }
+  &::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
   &::-webkit-scrollbar-track {
     background: $track-color;
   }
   &::-webkit-scrollbar-thumb {
-    background: $thumb-color;
+    background-color: $thumb-color;
     border-radius: 999px;
+    transition: background-color 0.3s ease;
   }
   &::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.35);
+    background-color: $thumb-hover;
+  }
+  &::-webkit-scrollbar-thumb:active {
+    background-color: $thumb-active;
   }
 }
 

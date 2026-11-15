@@ -1,11 +1,11 @@
-import React from 'react';
-import { Box, Skeleton } from '@mui/material';
+import React from "react";
+import { Box, Skeleton } from "@mui/material";
 import {
   GALLERY_LAYOUT,
   useGalleryColumns,
   getCategorySkeletonRatios,
-} from '../utils/galleryLayout';
-import type { GalleryCategory } from '../../../types';
+} from "../utils/galleryLayout";
+import type { GalleryCategory } from "../../../types";
 
 interface GallerySkeletonProps {
   category?: GalleryCategory;
@@ -19,9 +19,9 @@ export const GallerySkeleton: React.FC<GallerySkeletonProps> = ({ category }) =>
     <Box sx={GALLERY_LAYOUT.containerSx}>
       <Box
         sx={{
-          display: 'flex',
+          display: "flex",
           gap: GALLERY_LAYOUT.photoSpacing,
-          width: '100%',
+          width: "100%",
         }}
       >
         {columnRatios.map((ratios, colIdx) => (
@@ -29,8 +29,8 @@ export const GallerySkeleton: React.FC<GallerySkeletonProps> = ({ category }) =>
             key={colIdx}
             sx={{
               flex: 1,
-              display: 'flex',
-              flexDirection: 'column',
+              display: "flex",
+              flexDirection: "column",
               gap: GALLERY_LAYOUT.photoSpacing,
             }}
           >
@@ -38,9 +38,9 @@ export const GallerySkeleton: React.FC<GallerySkeletonProps> = ({ category }) =>
               <Box
                 key={i}
                 sx={{
-                  width: '100%',
+                  width: "100%",
                   aspectRatio: ratio,
-                  overflow: 'hidden',
+                  overflow: "hidden",
                 }}
               >
                 <Skeleton
@@ -50,8 +50,8 @@ export const GallerySkeleton: React.FC<GallerySkeletonProps> = ({ category }) =>
                   height="100%"
                   sx={{
                     borderRadius: 0,
-                    transform: 'none',
-                    backgroundColor: 'rgba(0, 0, 0, 0.08)',
+                    transform: "none",
+                    backgroundColor: "rgba(0, 0, 0, 0.08)",
                   }}
                 />
               </Box>

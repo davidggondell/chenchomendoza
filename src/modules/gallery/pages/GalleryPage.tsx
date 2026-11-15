@@ -1,10 +1,10 @@
-import React from 'react';
-import { useGalleryImages } from '../hooks/useGalleryImages';
-import { ImageGrid } from '../components/ImageGrid';
-import { GallerySkeleton } from '../components/GallerySkeleton';
-import { ErrorAlert } from '../../common/components/ErrorAlert';
-import { useLanguage } from '../../../i18n';
-import type { GalleryCategory } from '../../../types';
+import React from "react";
+import { useGalleryImages } from "../hooks/useGalleryImages";
+import { ImageGrid } from "../components/ImageGrid";
+import { GallerySkeleton } from "../components/GallerySkeleton";
+import { ErrorAlert } from "../../common/components/ErrorAlert";
+import { useLanguage } from "../../../i18n";
+import type { GalleryCategory } from "../../../types";
 
 interface GalleryPageProps {
   category: GalleryCategory;
@@ -22,7 +22,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ category }) => {
     return (
       <ErrorAlert
         severity="error"
-        message={`${t('project.error.galleryError')} ${error?.message || ''}`}
+        message={`${t("project.error.galleryError")} ${error?.message || ""}`}
       />
     );
   }
@@ -31,7 +31,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ category }) => {
     return (
       <ErrorAlert
         severity="warning"
-        message={t('project.error.emptyGallery')}
+        message={t("project.error.emptyGallery")}
       />
     );
   }

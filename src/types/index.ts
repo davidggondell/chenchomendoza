@@ -1,6 +1,6 @@
-export type Language = 'es' | 'gl' | 'en';
+export type Language = "es" | "gl" | "en";
 
-export type GalleryCategory = 'INICIO' | 'PAISAJE' | 'NATURALEZA' | 'RETRATO' | 'DEPORTES' | 'OTROS';
+export type GalleryCategory = "INICIO" | "PAISAJE" | "NATURALEZA" | "RETRATO" | "DEPORTES" | "OTROS";
 
 export interface ImageItem {
   id: string;

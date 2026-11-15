@@ -1,56 +1,56 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
-    mode: 'light',
+    mode: "light",
     primary: {
-      main: '#1a1a1a',
-      contrastText: '#ffffff',
+      main: "#1a1a1a",
+      contrastText: "#ffffff",
     },
     background: {
-      default: '#fbfbfb',
-      paper: '#ffffff',
+      default: "#ffffff",
+      paper: "#ffffff",
     },
-    divider: 'rgba(0, 0, 0, 0.08)',
+    divider: "rgba(0, 0, 0, 0.08)",
     text: {
-      primary: '#222222',
-      secondary: '#6c757d',
+      primary: "#222222",
+      secondary: "#6c757d",
     },
   },
   typography: {
-    fontFamily: "'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    fontFamily: "\"Montserrat\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
     h1: {
-      fontFamily: "'Bebas Neue', Impact, sans-serif",
-      letterSpacing: '2px',
+      fontFamily: "\"Bebas Neue\", Impact, sans-serif",
+      letterSpacing: "2px",
     },
     h2: {
-      fontFamily: "'Bebas Neue', Impact, sans-serif",
-      letterSpacing: '2px',
+      fontFamily: "\"Bebas Neue\", Impact, sans-serif",
+      letterSpacing: "2px",
     },
     h3: {
-      fontFamily: "'Bebas Neue', Impact, sans-serif",
-      letterSpacing: '1.5px',
+      fontFamily: "\"Bebas Neue\", Impact, sans-serif",
+      letterSpacing: "1.5px",
     },
     h4: {
-      fontFamily: "'Bebas Neue', Impact, sans-serif",
-      letterSpacing: '1.5px',
+      fontFamily: "\"Bebas Neue\", Impact, sans-serif",
+      letterSpacing: "1.5px",
     },
     h5: {
-      fontFamily: "'Bebas Neue', Impact, sans-serif",
-      letterSpacing: '1px',
+      fontFamily: "\"Bebas Neue\", Impact, sans-serif",
+      letterSpacing: "1px",
     },
     h6: {
-      fontFamily: "'Bebas Neue', Impact, sans-serif",
-      letterSpacing: '1px',
+      fontFamily: "\"Bebas Neue\", Impact, sans-serif",
+      letterSpacing: "1px",
     },
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none',
-          borderRadius: '8px',
-          '&:focus': {
+          textTransform: "none",
+          borderRadius: "8px",
+          "&:focus": {
             outline: 0,
           },
         },
@@ -59,7 +59,7 @@ const theme = createTheme({
     MuiIconButton: {
       styleOverrides: {
         root: {
-          '&:focus': {
+          "&:focus": {
             outline: 0,
             border: 0,
           },

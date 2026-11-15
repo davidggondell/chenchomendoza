@@ -29,22 +29,19 @@
   100% {
     opacity: 0;
     filter: brightness(100%);
-    pointer-events: none;
-    visibility: hidden;
   }
 }
 
 @keyframes zoomInText {
   0% {
-    transform: scale(0.85);
-    opacity: 0.7;
+    transform: scale3d(0.88, 0.88, 1);
+    opacity: 0.5;
   }
-  45% {
-    transform: scale(1);
+  30% {
     opacity: 1;
   }
   100% {
-    transform: scale(1.05);
+    transform: scale3d(1.05, 1.05, 1);
     opacity: 1;
   }
 }
@@ -103,8 +100,17 @@
 
 .fade-out-start {
   animation: fadeOut 6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  will-change: opacity, filter;
+  transform: translateZ(0);
 }
 
 .zoom-in-text-start {
-  animation: zoomInText 5.5s ease-out forwards;
+  animation: zoomInText 5.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
 }

@@ -1,24 +1,29 @@
-import { ref, listAll, getDownloadURL } from 'firebase/storage';
-import { storage } from '../../../services/firebase';
-import type { ImageItem } from '../../../types';
+import { ref, listAll, getDownloadURL } from "firebase/storage";
+import { storage } from "../../../services/firebase";
+import type { ImageItem } from "../../../types";
 
 interface ImageDimension {
   width: number;
   height: number;
 }
 
-const getImageDimensions = (url: string): Promise<ImageDimension> => {
+const getImageDimensions = (url: string, category: string): Promise<ImageDimension> => {
   return new Promise((resolve) => {
+    const isPortrait = category === "RETRATO";
+    const fallbackDims = {
+      width: isPortrait ? 800 : 1200,
+      height: isPortrait ? 1200 : 800,
+    };
+
     const img = new Image();
     img.onload = () => {
       resolve({
-        width: img.naturalWidth || img.width || 1200,
-        height: img.naturalHeight || img.height || 800,
+        width: img.naturalWidth || img.width || fallbackDims.width,
+        height: img.naturalHeight || img.height || fallbackDims.height,
       });
     };
     img.onerror = () => {
-      // Fallback 3:2 landscape
-      resolve({ width: 1200, height: 800 });
+      resolve(fallbackDims);
     };
     img.src = url;
   });
@@ -35,8 +40,8 @@ export const fetchGalleryImages = async (category: string): Promise<ImageItem[]>
   const itemsWithUrls = await Promise.all(
     result.items.map(async (itemRef, index) => {
       const url = await getDownloadURL(itemRef);
-      const dimensions = await getImageDimensions(url);
-      const rawName = itemRef.name.replace(/\.[^/.]+$/, '');
+      const dimensions = await getImageDimensions(url, category);
+      const rawName = itemRef.name.replace(/\.[^/.]+$/, "");
 
       const imageItem: ImageItem = {
         id: `${category}-${index}-${rawName}`,
@@ -53,3 +58,4 @@ export const fetchGalleryImages = async (category: string): Promise<ImageItem[]>
 
   return itemsWithUrls;
 };
+

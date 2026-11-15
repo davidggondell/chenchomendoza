@@ -5,6 +5,7 @@ import { Header } from "./Header";
 import { Sidebar } from "./Sidebar";
 import { StartLoader } from "./StartLoader";
 import { ScrollToTop } from "../../common/components/ScrollToTop";
+import { ScrollbarController } from "../../common/components/ScrollbarController";
 
 export const RootLayout: React.FC = () => {
   const theme = useTheme();
@@ -20,6 +21,7 @@ export const RootLayout: React.FC = () => {
   return (
     <Box sx={{ display: "flex", minHeight: "100vh", width: "100%", position: "relative" }}>
       <ScrollToTop />
+      <ScrollbarController />
       <StartLoader />
 
       {isMobile && (

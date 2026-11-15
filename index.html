@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="start-loader-active">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
@@ -29,6 +29,15 @@
         background-color: #000000;
         margin: 0;
         padding: 0;
+      }
+      html.start-loader-active,
+      html.start-loader-active body {
+        overflow: hidden !important;
+      }
+      html.start-loader-active::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
       }
     </style>
 

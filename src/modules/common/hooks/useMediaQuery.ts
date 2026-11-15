@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export const useMediaQuery = (query: string): boolean => {
   const [matches, setMatches] = useState<boolean>(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       return window.matchMedia(query).matches;
     }
     return false;
   });
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     const mediaQueryList = window.matchMedia(query);
     const listener = (event: MediaQueryListEvent) => {
@@ -17,10 +17,10 @@ export const useMediaQuery = (query: string): boolean => {
     };
 
     setMatches(mediaQueryList.matches);
-    mediaQueryList.addEventListener('change', listener);
+    mediaQueryList.addEventListener("change", listener);
 
     return () => {
-      mediaQueryList.removeEventListener('change', listener);
+      mediaQueryList.removeEventListener("change", listener);
     };
   }, [query]);
 

@@ -1,5 +1,5 @@
-import type { RouteObject } from 'react-router-dom';
-import { GalleryPage } from '../pages/GalleryPage';
+import type { RouteObject } from "react-router-dom";
+import { GalleryPage } from "../pages/GalleryPage";
 
 export const galleryRoutes: RouteObject[] = [
   {
@@ -7,23 +7,23 @@ export const galleryRoutes: RouteObject[] = [
     element: <GalleryPage category="INICIO" />,
   },
   {
-    path: 'paisaje',
+    path: "paisaje",
     element: <GalleryPage category="PAISAJE" />,
   },
   {
-    path: 'naturaleza',
+    path: "naturaleza",
     element: <GalleryPage category="NATURALEZA" />,
   },
   {
-    path: 'retrato',
+    path: "retrato",
     element: <GalleryPage category="RETRATO" />,
   },
   {
-    path: 'deportes',
+    path: "deportes",
     element: <GalleryPage category="DEPORTES" />,
   },
   {
-    path: 'otros',
+    path: "otros",
     element: <GalleryPage category="OTROS" />,
   },
 ];

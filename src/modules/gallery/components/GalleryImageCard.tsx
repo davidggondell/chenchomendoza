@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Box, Skeleton } from '@mui/material';
-import type { ImageItem } from '../../../types';
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import { Box, Skeleton } from "@mui/material";
+import type { ImageItem } from "../../../types";
 
 interface GalleryImageCardProps {
   image: ImageItem;
@@ -9,7 +9,7 @@ interface GalleryImageCardProps {
 }
 
 const parseRatio = (ratioStr: string): number => {
-  const parts = ratioStr.split('/').map((s) => parseFloat(s.trim()));
+  const parts = ratioStr.split("/").map((s) => parseFloat(s.trim()));
   if (parts.length === 2 && parts[1] > 0) {
     return parts[0] / parts[1];
   }
@@ -18,18 +18,20 @@ const parseRatio = (ratioStr: string): number => {
 
 export const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
   image,
-  initialAspectRatio = '3 / 2',
+  initialAspectRatio = "3 / 2",
   onClick,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
+  const decodeStartedRef = useRef(false);
 
-  const [imgLoaded, setImgLoaded] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const [imgDecoded, setImgDecoded] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [animatingHeight, setAnimatingHeight] = useState<number | null>(null);
   const [hasCompletedTransition, setHasCompletedTransition] = useState(false);
 
-  // Exact photographic aspect ratio from image metadata (e.g. 1.5 for 3:2 landscape, 0.667 for 2:3 portrait)
+  // Exact photographic aspect ratio from image metadata
   const nativeAspectRatio =
     image.width && image.height
       ? `${image.width} / ${image.height}`
@@ -44,38 +46,83 @@ export const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
         ? 1 / image.aspectRatio
         : parseRatio(initialAspectRatio);
 
-  // Check if image is already cached / complete in browser memory
-  useEffect(() => {
-    if (imgRef.current && imgRef.current.complete && imgRef.current.naturalWidth > 0) {
-      setImgLoaded(true);
+  // Pre-decode bitmap off the main thread BEFORE starting the height + opacity transition
+  const handleImageReady = useCallback((imgEl: HTMLImageElement) => {
+    if (decodeStartedRef.current) return;
+    decodeStartedRef.current = true;
+
+    const finalize = () => {
+      setImgDecoded(true);
+    };
+
+    if (typeof imgEl.decode === "function") {
+      imgEl.decode().then(finalize).catch(finalize);
+    } else {
+      finalize();
     }
   }, []);
 
-  // Smooth height transition from skeleton ratio to native ratio once image is ready
+  // Only activate Skeleton and <img> when the card is in or near the viewport
   useEffect(() => {
-    if (!imgLoaded) return;
+    const el = containerRef.current;
+    if (!el || isInView) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setIsInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "250px 0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isInView]);
+
+  // If image is already cached in browser memory once in view, decode off-thread first
+  useEffect(() => {
+    const imgEl = imgRef.current;
+    if (isInView && imgEl && imgEl.complete && imgEl.naturalWidth > 0) {
+      handleImageReady(imgEl);
+    }
+  }, [isInView, handleImageReady]);
+
+  // Smooth height transition from skeleton ratio to native ratio once bitmap is already decoded in GPU
+  useEffect(() => {
+    if (!imgDecoded) return;
     const container = containerRef.current;
     if (!container) return;
 
-    const currentW = container.getBoundingClientRect().width;
+    const rect = container.getBoundingClientRect();
+    const currentW = rect.width;
     if (currentW === 0) {
       const rafId = requestAnimationFrame(() => {
-        setImgLoaded(true);
+        setIsLoaded(true);
+        setHasCompletedTransition(true);
       });
       return () => cancelAnimationFrame(rafId);
     }
 
-    const currentH = container.getBoundingClientRect().height;
+    const currentH = rect.height;
     const targetH = Math.round(currentW / nativeRatioVal);
 
-    // If height difference is negligible (<= 2px), smoothly reveal without height layout shift
+    // If height difference is negligible (<= 2px), reveal without height animation
     if (Math.abs(currentH - targetH) <= 2) {
       setIsLoaded(true);
-      setHasCompletedTransition(true);
-      return;
+      const timer = window.setTimeout(() => {
+        setHasCompletedTransition(true);
+      }, 650);
+      return () => window.clearTimeout(timer);
     }
 
-    // Lock starting height to initiate CSS transition
+    // Lock starting height to initiate smooth CSS transition
     setAnimatingHeight(currentH);
 
     let rafId2: number;
@@ -90,16 +137,16 @@ export const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
       cancelAnimationFrame(rafId1);
       cancelAnimationFrame(rafId2);
     };
-  }, [imgLoaded, nativeRatioVal]);
+  }, [imgDecoded, nativeRatioVal]);
 
-  // Clean up fixed pixel height after animation ends so card is fully responsive
+  // Clean up fixed pixel height and unmount Skeleton after animation ends
   useEffect(() => {
     if (animatingHeight !== null && isLoaded) {
-      const timer = setTimeout(() => {
+      const timer = window.setTimeout(() => {
         setAnimatingHeight(null);
         setHasCompletedTransition(true);
-      }, 750); // duration 0.7s
-      return () => clearTimeout(timer);
+      }, 720);
+      return () => window.clearTimeout(timer);
     }
   }, [animatingHeight, isLoaded]);
 
@@ -107,23 +154,27 @@ export const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
   useEffect(() => {
     const handleResize = () => {
       setAnimatingHeight(null);
-      setHasCompletedTransition(true);
+      if (isLoaded) {
+        setHasCompletedTransition(true);
+      }
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isLoaded]);
 
-  // Compute styles for container depending on animation state
   const getBoxSx = () => {
     const baseSx = {
-      position: 'relative' as const,
-      width: '100%',
-      overflow: 'hidden' as const,
-      cursor: 'pointer' as const,
-      backgroundColor: '#f2f2f2',
-      '&:hover': {
-        filter: 'brightness(60%)',
-        transform: 'scale(0.97)',
+      position: "relative" as const,
+      width: "100%",
+      overflow: "hidden" as const,
+      cursor: "pointer" as const,
+      backgroundColor: "rgba(0, 0, 0, 0.06)",
+      contain: "layout paint",
+      "@media (hover: hover) and (pointer: fine)": {
+        "&:hover": {
+          filter: "brightness(60%)",
+          transform: "scale(0.97)",
+        },
       },
     };
 
@@ -131,80 +182,83 @@ export const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
       return {
         ...baseSx,
         height: `${animatingHeight}px`,
-        aspectRatio: 'unset',
+        aspectRatio: "unset",
         transition:
-          'height 0.7s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease, transform 0.4s ease',
+          "height 0.65s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease, transform 0.4s ease",
       };
     }
 
     if (hasCompletedTransition) {
       return {
         ...baseSx,
-        height: 'auto',
+        height: "auto",
         aspectRatio: nativeAspectRatio,
-        transition: 'filter 0.4s ease, transform 0.4s ease',
+        transition: "filter 0.4s ease, transform 0.4s ease",
       };
     }
 
-    // Initial state: skeleton aspect ratio
+    // Initial state: skeleton aspect ratio matching GallerySkeleton
     return {
       ...baseSx,
-      height: 'auto',
+      height: "auto",
       aspectRatio: initialAspectRatio,
-      transition: 'filter 0.4s ease, transform 0.4s ease',
+      transition: "filter 0.4s ease, transform 0.4s ease",
     };
   };
 
   return (
     <Box ref={containerRef} onClick={onClick} sx={getBoxSx()}>
-      {/* Skeleton placeholder inside the card, fades out when image finishes loading */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          opacity: isLoaded ? 0 : 1,
-          pointerEvents: 'none',
-          transition: 'opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
-          zIndex: 1,
-        }}
-      >
-        <Skeleton
-          variant="rectangular"
-          animation="wave"
-          width="100%"
-          height="100%"
+      {/* Skeleton wave is ONLY mounted when in view and unmounts as soon as transition finishes */}
+      {isInView && !hasCompletedTransition && (
+        <Box
           sx={{
-            borderRadius: 0,
-            transform: 'none',
-            backgroundColor: 'rgba(0, 0, 0, 0.08)',
+            position: "absolute",
+            inset: 0,
+            opacity: isLoaded ? 0 : 1,
+            pointerEvents: "none",
+            willChange: "opacity",
+            transition: "opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1)",
+            zIndex: 1,
+          }}
+        >
+          <Skeleton
+            variant="rectangular"
+            animation="wave"
+            width="100%"
+            height="100%"
+            sx={{
+              borderRadius: 0,
+              transform: "none",
+              backgroundColor: "rgba(0, 0, 0, 0.08)",
+            }}
+          />
+        </Box>
+      )}
+
+      {/* Real image with async off-thread decoding and smooth crossfade */}
+      {isInView && (
+        <Box
+          component="img"
+          ref={imgRef}
+          src={image.src}
+          alt={image.name}
+          loading="lazy"
+          decoding="async"
+          onLoad={(e) => handleImageReady(e.currentTarget)}
+          sx={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+            opacity: isLoaded ? 1 : 0,
+            willChange: hasCompletedTransition ? "auto" : "opacity",
+            transition: "opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1)",
+            zIndex: 2,
           }}
         />
-      </Box>
-
-      {/* Real image with natural object-fit and smooth crossfade */}
-      <Box
-        component="img"
-        ref={imgRef}
-        src={image.src}
-        alt={image.name}
-        loading="lazy"
-        onLoad={() => setImgLoaded(true)}
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          display: 'block',
-          opacity: isLoaded ? 1 : 0,
-          transition: 'opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
-          zIndex: 2,
-        }}
-      />
+      )}
     </Box>
   );
 };

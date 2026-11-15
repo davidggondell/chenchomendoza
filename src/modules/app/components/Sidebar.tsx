@@ -178,6 +178,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose, variant, sideba
             </Collapse>
 
             <NavItem text={t("project.navigation.aboutme")} path="/sobremi" />
+            <NavItem text={t("project.navigation.trajectory")} path="/trayectoria" />
             <NavItem text={t("project.navigation.contact")} path="/contacto" />
           </List>
         </Box>
