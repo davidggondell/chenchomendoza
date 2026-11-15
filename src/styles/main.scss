@@ -1,0 +1,153 @@
+@use "variables" as *;
+@use "mixins" as *;
+@use "typography" as *;
+@use "animations" as *;
+@use "utilities" as *;
+
+// CSS Reset & Global Base
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  width: 100%;
+  min-height: 100%;
+  background-color: #ffffff;
+  color: $color-text-main;
+  overflow-x: clip;
+  overflow-y: auto;
+}
+
+body {
+  width: 100%;
+  min-height: 100%;
+  background-color: #ffffff;
+  color: $color-text-main;
+  overflow-x: clip;
+}
+
+// Disable scroll and scrollbars completely while StartLoader or a Lightbox/Dialog is active
+html.start-loader-active,
+html.start-loader-active body,
+html.modal-scroll-locked,
+html.modal-scroll-locked body,
+html:has(.MuiDialog-root),
+html:has(.MuiDialog-root) body {
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+  overscroll-behavior: none !important;
+}
+
+html.start-loader-active::-webkit-scrollbar,
+html.start-loader-active body::-webkit-scrollbar,
+html.modal-scroll-locked::-webkit-scrollbar,
+html.modal-scroll-locked body::-webkit-scrollbar,
+html:has(.MuiDialog-root)::-webkit-scrollbar,
+html:has(.MuiDialog-root) body::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  @include button-reset;
+}
+
+// Global Custom Scrollbar (Chromium, Edge, Safari)
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: $color-bg-light;
+}
+
+// Hide scrollbar arrow buttons completely in all states
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-button:single-button,
+::-webkit-scrollbar-button:vertical:decrement,
+::-webkit-scrollbar-button:vertical:increment,
+::-webkit-scrollbar-button:horizontal:decrement,
+::-webkit-scrollbar-button:horizontal:increment {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece,
+::-webkit-scrollbar-corner {
+  background: $color-bg-light !important;
+  background-color: $color-bg-light !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 0;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Reveal thumb when scrolling, when mouse is near right edge, or when hovering thumb
+html.is-scrolling::-webkit-scrollbar-thumb,
+html.is-scrolling ::-webkit-scrollbar-thumb,
+html.is-scrollbar-hovered::-webkit-scrollbar-thumb,
+html.is-scrollbar-hovered ::-webkit-scrollbar-thumb,
+body.is-scrolling::-webkit-scrollbar-thumb,
+body.is-scrolling ::-webkit-scrollbar-thumb,
+body.is-scrollbar-hovered::-webkit-scrollbar-thumb,
+body.is-scrollbar-hovered ::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(18, 18, 18, 0.84);
+}
+
+// Contrast on direct thumb hover
+::-webkit-scrollbar-thumb:hover {
+  background-color: #111111 !important;
+}
+
+// Pure black on active drag
+::-webkit-scrollbar-thumb:active {
+  background-color: #000000 !important;
+}
+
+// Firefox only (where ::-webkit-scrollbar is not supported)
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: transparent $color-bg-light;
+    transition: scrollbar-color 0.35s ease;
+
+    &.is-scrolling,
+    &.is-scrollbar-hovered {
+      scrollbar-color: rgba(18, 18, 18, 0.85) $color-bg-light;
+    }
+  }
+}
+
+// Glassmorphic Card Helper
+.glass-panel {
+  @include glassmorphism;
+  border-radius: 1rem;
+  box-shadow: $shadow-md;
+}
+
+.glass-panel-dark {
+  @include glassmorphism($gradient-dark-glass, 20px, $color-border-dark);
+  color: $color-text-light;
+  border-radius: 1rem;
+  box-shadow: $shadow-elevated;
+}
