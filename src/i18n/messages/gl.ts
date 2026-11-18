@@ -92,12 +92,14 @@ export const gl: Record<MessageKey, string> = {
   "project.contact.copy": "Copiar email",
 
   // Errors & States
-  "project.error.emptyGallery": "Esta galería está valeira polo de agora.",
-  "project.error.galleryError": "Erro ao cargar as fotografías: ",
+  "project.error.emptyGallery": "Esta galería non ten fotografías dispoñibles neste momento.",
+  "project.error.galleryError": "Non se puideron cargar as fotografías neste momento. Comproba a túa conexión e téntao de novo.",
+  "project.error.dataError": "Non se puido cargar esta sección neste momento. Téntao de novo máis tarde.",
   "project.error.notFoundTitle": "Páxina non atopada",
   "project.error.notFoundText": "A páxina que buscas non existe ou foi movida.",
   "project.error.backHome": "Volver ao inicio",
   "project.common.close": "Pechar",
+  "project.common.retry": "Tentar de novo",
   "project.common.play": "Reproducir",
   "project.common.pause": "Pausar",
   "project.common.previous": "Anterior",

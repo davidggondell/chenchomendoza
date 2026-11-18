@@ -13,6 +13,7 @@ import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import PhotoLibraryOutlinedIcon from "@mui/icons-material/PhotoLibraryOutlined";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import { useLanguage } from "../../../i18n";
+import { ErrorAlert } from "../../common/components/ErrorAlert";
 import { useTrajectoryTimeline } from "../hooks/useAboutData";
 import {
   getLocalizedText,
@@ -35,7 +36,7 @@ interface CategoryStyle {
 
 export const TimelineSection: React.FC = () => {
   const { t, language } = useLanguage();
-  const { data: events = [], isLoading } = useTrajectoryTimeline();
+  const { data: events = [], isLoading, isError, refetch } = useTrajectoryTimeline();
 
   const [filter, setFilter] = useState<FilterValue>("all");
   const [previewEvent, setPreviewEvent] = useState<TimelineEvent | null>(null);
@@ -195,8 +196,16 @@ export const TimelineSection: React.FC = () => {
         </Box>
       </Box>
 
-      {/* Loading Skeletons */}
-      {isLoading ? (
+      {/* Error State */}
+      {isError ? (
+        <ErrorAlert
+          severity="error"
+          message={t("project.error.dataError")}
+          onRetry={() => {
+            void refetch();
+          }}
+        />
+      ) : isLoading ? (
         <Box
           sx={{
             position: "relative",

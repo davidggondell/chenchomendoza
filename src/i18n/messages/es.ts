@@ -90,12 +90,14 @@ export const es = {
   "project.contact.copy": "Copiar email",
 
   // Errors & States
-  "project.error.emptyGallery": "Esta galería está vacía en este momento.",
-  "project.error.galleryError": "Error al cargar las fotografías: ",
+  "project.error.emptyGallery": "Esta galería no tiene fotografías disponibles en este momento.",
+  "project.error.galleryError": "No se pudieron cargar las fotografías en este momento. Comprueba tu conexión e inténtalo de nuevo.",
+  "project.error.dataError": "No se pudo cargar esta sección en este momento. Inténtalo de nuevo más tarde.",
   "project.error.notFoundTitle": "Página no encontrada",
   "project.error.notFoundText": "La página que buscas no existe o ha sido movida.",
   "project.error.backHome": "Volver al inicio",
   "project.common.close": "Cerrar",
+  "project.common.retry": "Reintentar",
   "project.common.play": "Reproducir",
   "project.common.pause": "Pausar",
   "project.common.previous": "Anterior",

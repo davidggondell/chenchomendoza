@@ -11,7 +11,7 @@ interface GalleryPageProps {
 }
 
 export const GalleryPage: React.FC<GalleryPageProps> = ({ category }) => {
-  const { data: images, isLoading, isError, error } = useGalleryImages(category);
+  const { data: images, isLoading, isError, refetch } = useGalleryImages(category);
   const { t } = useLanguage();
 
   if (isLoading) {
@@ -22,7 +22,10 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ category }) => {
     return (
       <ErrorAlert
         severity="error"
-        message={`${t("project.error.galleryError")} ${error?.message || ""}`}
+        message={t("project.error.galleryError")}
+        onRetry={() => {
+          void refetch();
+        }}
       />
     );
   }

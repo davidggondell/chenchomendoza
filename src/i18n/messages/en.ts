@@ -92,12 +92,14 @@ export const en: Record<MessageKey, string> = {
   "project.contact.copy": "Copy email",
 
   // Errors & States
-  "project.error.emptyGallery": "This gallery is currently empty.",
-  "project.error.galleryError": "Error loading photographs: ",
+  "project.error.emptyGallery": "This gallery has no photographs available at the moment.",
+  "project.error.galleryError": "Could not load the photographs right now. Please check your connection and try again.",
+  "project.error.dataError": "Could not load this section right now. Please try again later.",
   "project.error.notFoundTitle": "Page Not Found",
   "project.error.notFoundText": "The page you are looking for does not exist or has been moved.",
   "project.error.backHome": "Return to Home",
   "project.common.close": "Close",
+  "project.common.retry": "Try again",
   "project.common.play": "Play",
   "project.common.pause": "Pause",
   "project.common.previous": "Previous",
