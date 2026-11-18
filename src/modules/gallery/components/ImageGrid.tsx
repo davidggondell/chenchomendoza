@@ -120,6 +120,7 @@ export const ImageGrid: React.FC<ImageGridProps> = ({ images, category }) => {
                     <GalleryImageCard
                       key={image.id}
                       image={image}
+                      priority={globalIndex}
                       initialAspectRatio={initialRatio}
                       onClick={() => handleImageClick(globalIndex)}
                     />

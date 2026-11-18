@@ -1,5 +1,5 @@
 import { ref, get } from "firebase/database";
-import { database } from "../../../services/firebase";
+import { database, ensureAnonymousAuth } from "../../../services/firebase";
 import type {
   EquipmentCategory,
   AwardItem,
@@ -26,6 +26,7 @@ const mapObjectToArray = <T extends { id?: string; order?: number }>(data: Recor
 };
 
 export const fetchEquipment = async (): Promise<EquipmentCategory[]> => {
+  await ensureAnonymousAuth();
   const equipmentRef = ref(database, "equipo");
   const snapshot = await get(equipmentRef);
   if (!snapshot.exists()) return [];
@@ -36,6 +37,7 @@ export const fetchEquipment = async (): Promise<EquipmentCategory[]> => {
 };
 
 export const fetchBio = async (): Promise<BioData | null> => {
+  await ensureAnonymousAuth();
   const bioRef = ref(database, "bio");
   const snapshot = await get(bioRef);
   if (!snapshot.exists()) return null;
@@ -43,6 +45,7 @@ export const fetchBio = async (): Promise<BioData | null> => {
 };
 
 export const fetchAwards = async (): Promise<AwardItem[]> => {
+  await ensureAnonymousAuth();
   const awardsRef = ref(database, "premios");
   const snapshot = await get(awardsRef);
   if (!snapshot.exists()) return [];
@@ -53,6 +56,7 @@ export const fetchAwards = async (): Promise<AwardItem[]> => {
 };
 
 export const fetchExhibitions = async (): Promise<ExhibitionItem[]> => {
+  await ensureAnonymousAuth();
   const exposRef = ref(database, "exposiciones");
   const snapshot = await get(exposRef);
   if (!snapshot.exists()) return [];
@@ -63,6 +67,7 @@ export const fetchExhibitions = async (): Promise<ExhibitionItem[]> => {
 };
 
 export const fetchPublications = async (): Promise<PublicationItem[]> => {
+  await ensureAnonymousAuth();
   const pubRef = ref(database, "publicaciones");
   const snapshot = await get(pubRef);
   if (!snapshot.exists()) return [];

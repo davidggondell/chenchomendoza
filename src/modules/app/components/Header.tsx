@@ -1,21 +1,37 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AppBar, Toolbar, Box, Button, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import logo from "../../../assets/images/LOGOPAGINABLANCA.png";
 import { useLanguage } from "../../../i18n";
 
 interface HeaderProps {
   appbarHeight?: number;
+  open?: boolean;
   onToggleSidebar: () => void;
+  onCloseSidebar?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   appbarHeight = 56,
+  open = false,
   onToggleSidebar,
+  onCloseSidebar,
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useLanguage();
+
+  const handleLogoClick = () => {
+    if (location.pathname === "/") {
+      if (open && onCloseSidebar) {
+        onCloseSidebar();
+      }
+      return;
+    }
+    navigate("/");
+  };
 
   return (
     <AppBar
@@ -25,15 +41,21 @@ export const Header: React.FC<HeaderProps> = ({
         color: "#111111",
         boxShadow: "none",
         borderBottom: "1px solid rgba(0, 0, 0, 0.08)",
-        zIndex: (theme) => theme.zIndex.drawer + 1,
+        zIndex: (theme) => theme.zIndex.drawer + 2,
       }}
     >
-      <Toolbar sx={{ height: `${appbarHeight}px`, minHeight: `${appbarHeight}px`, padding: "0 1rem" }}>
+      <Toolbar
+        sx={{
+          height: `${appbarHeight}px`,
+          minHeight: `${appbarHeight}px !important`,
+          padding: "0 1rem",
+        }}
+      >
         <Box
           component="img"
           src={logo}
           alt="Chencho Mendoza"
-          onClick={() => navigate("/")}
+          onClick={handleLogoClick}
           sx={{
             height: "36px",
             width: "auto",
@@ -45,14 +67,19 @@ export const Header: React.FC<HeaderProps> = ({
 
         <Button
           onClick={onToggleSidebar}
+          aria-label={open ? t("project.common.close") : t("project.header.menu")}
           sx={{
-            color: "rgba(0, 0, 0, 0.65)",
+            color: open ? "#000000" : "rgba(0, 0, 0, 0.75)",
             display: "flex",
             alignItems: "center",
-            gap: 1,
-            padding: "4px 10px",
+            gap: 0.85,
+            minHeight: "42px",
+            padding: "6px 12px",
+            borderRadius: "8px",
+            backgroundColor: open ? "rgba(0, 0, 0, 0.05)" : "transparent",
+            transition: "all 0.2s ease",
             "&:hover": {
-              backgroundColor: "rgba(0, 0, 0, 0.04)",
+              backgroundColor: "rgba(0, 0, 0, 0.06)",
               color: "#000000",
             },
           }}
@@ -61,14 +88,14 @@ export const Header: React.FC<HeaderProps> = ({
             sx={{
               fontFamily: "Bebas Neue",
               fontSize: "1.25rem",
-              letterSpacing: "1px",
+              letterSpacing: "1.5px",
               lineHeight: 1,
               pt: "2px",
             }}
           >
-            {t("project.header.menu")}
+            {open ? t("project.common.close") : t("project.header.menu")}
           </Typography>
-          <MenuIcon />
+          {open ? <CloseIcon fontSize="medium" /> : <MenuIcon fontSize="medium" />}
         </Button>
       </Toolbar>
     </AppBar>

@@ -1,9 +1,15 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Box, Skeleton } from "@mui/material";
+import {
+  enqueueGalleryImageLoad,
+  getCachedImageMeta,
+  type ResolvedImageMeta,
+} from "../services/galleryService";
 import type { ImageItem } from "../../../types";
 
 interface GalleryImageCardProps {
   image: ImageItem;
+  priority?: number;
   initialAspectRatio?: string;
   onClick: () => void;
 }
@@ -18,54 +24,37 @@ const parseRatio = (ratioStr: string): number => {
 
 export const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
   image,
+  priority = 0,
   initialAspectRatio = "3 / 2",
   onClick,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
-  const decodeStartedRef = useRef(false);
+  const initialCached = getCachedImageMeta(image);
 
-  const [isInView, setIsInView] = useState(false);
-  const [imgDecoded, setImgDecoded] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isInView, setIsInView] = useState<boolean>(Boolean(initialCached));
+  const [resolvedMeta, setResolvedMeta] = useState<ResolvedImageMeta | null>(
+    initialCached || null
+  );
+  const [isLoaded, setIsLoaded] = useState<boolean>(Boolean(initialCached));
   const [animatingHeight, setAnimatingHeight] = useState<number | null>(null);
-  const [hasCompletedTransition, setHasCompletedTransition] = useState(false);
+  const [hasCompletedTransition, setHasCompletedTransition] = useState<boolean>(
+    Boolean(initialCached)
+  );
 
-  // Exact photographic aspect ratio from image metadata
-  const nativeAspectRatio =
-    image.width && image.height
-      ? `${image.width} / ${image.height}`
-      : image.aspectRatio
-        ? `1 / ${image.aspectRatio}`
-        : initialAspectRatio;
+  // Exact photographic aspect ratio once resolved by the sequential queue
+  const nativeAspectRatio = resolvedMeta
+    ? `${resolvedMeta.width} / ${resolvedMeta.height}`
+    : initialAspectRatio;
 
-  const nativeRatioVal =
-    image.width && image.height
-      ? image.width / image.height
-      : image.aspectRatio
-        ? 1 / image.aspectRatio
-        : parseRatio(initialAspectRatio);
+  const nativeRatioVal = resolvedMeta
+    ? resolvedMeta.width / resolvedMeta.height
+    : parseRatio(initialAspectRatio);
 
-  // Pre-decode bitmap off the main thread BEFORE starting the height + opacity transition
-  const handleImageReady = useCallback((imgEl: HTMLImageElement) => {
-    if (decodeStartedRef.current) return;
-    decodeStartedRef.current = true;
-
-    const finalize = () => {
-      setImgDecoded(true);
-    };
-
-    if (typeof imgEl.decode === "function") {
-      imgEl.decode().then(finalize).catch(finalize);
-    } else {
-      finalize();
-    }
-  }, []);
-
-  // Only activate Skeleton and <img> when the card is in or near the viewport
+  // Observe when card enters or approaches the viewport
   useEffect(() => {
+    if (isInView) return;
     const el = containerRef.current;
-    if (!el || isInView) return;
+    if (!el) return;
 
     if (typeof IntersectionObserver === "undefined") {
       setIsInView(true);
@@ -79,24 +68,29 @@ export const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
           observer.disconnect();
         }
       },
-      { rootMargin: "250px 0px" }
+      { rootMargin: "200px 0px" }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, [isInView]);
 
-  // If image is already cached in browser memory once in view, decode off-thread first
+  // When in view, enqueue this card in the sequential cascade loader (1 by 1, top to bottom)
   useEffect(() => {
-    const imgEl = imgRef.current;
-    if (isInView && imgEl && imgEl.complete && imgEl.naturalWidth > 0) {
-      handleImageReady(imgEl);
-    }
-  }, [isInView, handleImageReady]);
+    if (!isInView || resolvedMeta) return;
 
-  // Smooth height transition from skeleton ratio to native ratio once bitmap is already decoded in GPU
+    const cancelQueue = enqueueGalleryImageLoad(image, priority, (meta) => {
+      setResolvedMeta(meta);
+    });
+
+    return () => {
+      cancelQueue();
+    };
+  }, [isInView, resolvedMeta, image, priority]);
+
+  // Smooth height + opacity transition once this card's turn in the queue completes
   useEffect(() => {
-    if (!imgDecoded) return;
+    if (!resolvedMeta || hasCompletedTransition) return;
     const container = containerRef.current;
     if (!container) return;
 
@@ -113,7 +107,6 @@ export const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
     const currentH = rect.height;
     const targetH = Math.round(currentW / nativeRatioVal);
 
-    // If height difference is negligible (<= 2px), reveal without height animation
     if (Math.abs(currentH - targetH) <= 2) {
       setIsLoaded(true);
       const timer = window.setTimeout(() => {
@@ -122,7 +115,6 @@ export const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
       return () => window.clearTimeout(timer);
     }
 
-    // Lock starting height to initiate smooth CSS transition
     setAnimatingHeight(currentH);
 
     let rafId2: number;
@@ -137,7 +129,7 @@ export const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
       cancelAnimationFrame(rafId1);
       cancelAnimationFrame(rafId2);
     };
-  }, [imgDecoded, nativeRatioVal]);
+  }, [resolvedMeta, nativeRatioVal, hasCompletedTransition]);
 
   // Clean up fixed pixel height and unmount Skeleton after animation ends
   useEffect(() => {
@@ -197,7 +189,6 @@ export const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
       };
     }
 
-    // Initial state: skeleton aspect ratio matching GallerySkeleton
     return {
       ...baseSx,
       height: "auto",
@@ -235,16 +226,13 @@ export const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
         </Box>
       )}
 
-      {/* Real image with async off-thread decoding and smooth crossfade */}
-      {isInView && (
+      {/* Image mounts only when its turn in the queue has already downloaded & decoded it */}
+      {resolvedMeta && (
         <Box
           component="img"
-          ref={imgRef}
-          src={image.src}
+          src={resolvedMeta.url}
           alt={image.name}
-          loading="lazy"
           decoding="async"
-          onLoad={(e) => handleImageReady(e.currentTarget)}
           sx={{
             position: "absolute",
             inset: 0,

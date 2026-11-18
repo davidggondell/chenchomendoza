@@ -5,9 +5,10 @@ export type GalleryCategory = "INICIO" | "PAISAJE" | "NATURALEZA" | "RETRATO" | 
 export interface ImageItem {
   id: string;
   src: string;
+  storagePath?: string;
   name: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   aspectRatio: number;
 }
 

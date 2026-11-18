@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   Drawer,
@@ -11,8 +11,11 @@ import {
   Divider,
   IconButton,
   Icon,
+  ButtonBase,
+  Fade,
 } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import logo from "../../../assets/images/LOGOPAGINABLANCA.png";
 import flickrIcon from "../../../assets/images/flickrIcon.png";
 import pxIcon from "../../../assets/images/500pxIcon.png";
@@ -24,25 +27,307 @@ interface SidebarProps {
   onClose: () => void;
   variant: "permanent" | "temporary";
   sidebarWidth?: number;
+  appbarHeight?: number;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ open, onClose, variant, sidebarWidth = 260 }) => {
+export const Sidebar: React.FC<SidebarProps> = ({
+  open,
+  onClose,
+  variant,
+  sidebarWidth = 260,
+  appbarHeight = 56,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useLanguage();
 
-  const galleryPaths = ["/paisaje", "/naturaleza", "/retrato", "/deportes", "/otros"];
+  const galleryItems = [
+    { text: t("project.navigation.landscape"), path: "/paisaje" },
+    { text: t("project.navigation.nature"), path: "/naturaleza" },
+    { text: t("project.navigation.portraits"), path: "/retrato" },
+    { text: t("project.navigation.sports"), path: "/deportes" },
+    { text: t("project.navigation.others"), path: "/otros" },
+  ];
+
+  const galleryPaths = galleryItems.map((item) => item.path);
   const isGalleryActive = galleryPaths.includes(location.pathname);
 
-  const [openGallery, setOpenGallery] = useState<boolean>(isGalleryActive);
+  const [openGallery, setOpenGallery] = useState<boolean>(
+    variant === "temporary" ? true : isGalleryActive
+  );
+
+  useEffect(() => {
+    if (isGalleryActive) {
+      setOpenGallery(true);
+    }
+  }, [isGalleryActive]);
+
+  // Lock page scroll while mobile full-screen menu is open
+  useEffect(() => {
+    if (variant !== "temporary") return;
+    const docEl = document.documentElement;
+    if (open) {
+      docEl.classList.add("modal-scroll-locked");
+    } else {
+      docEl.classList.remove("modal-scroll-locked");
+    }
+    return () => {
+      docEl.classList.remove("modal-scroll-locked");
+    };
+  }, [open, variant]);
 
   const handleNavigate = (path: string) => {
-    navigate(path);
-    if (variant === "temporary") {
-      onClose();
+    if (location.pathname === path) {
+      if (variant === "temporary") {
+        onClose();
+      }
+      return;
     }
+    navigate(path);
   };
 
+  // ==================== MOBILE FULL-SCREEN OVERLAY MENU ====================
+  if (variant === "temporary") {
+    const MobileNavButton = ({
+      text,
+      path,
+      action,
+      active = false,
+      expandable = false,
+      expanded = false,
+    }: {
+      text: string;
+      path?: string;
+      action?: () => void;
+      active?: boolean;
+      expandable?: boolean;
+      expanded?: boolean;
+    }) => {
+      const isCurrent = path ? location.pathname === path : active;
+
+      return (
+        <ButtonBase
+          onClick={() => {
+            if (action) action();
+            else if (path) handleNavigate(path);
+          }}
+          sx={{
+            width: "100%",
+            minHeight: "50px",
+            py: 0.75,
+            px: 2,
+            borderRadius: "10px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 0.75,
+            transition: "all 0.2s ease",
+            backgroundColor: isCurrent && !expandable ? "rgba(0, 0, 0, 0.05)" : "transparent",
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: "Bebas Neue",
+              fontSize: "1.9rem",
+              letterSpacing: "3px",
+              lineHeight: 1.1,
+              color: isCurrent ? "#000000" : "rgba(0, 0, 0, 0.45)",
+              fontWeight: 400,
+              transition: "color 0.2s ease",
+            }}
+          >
+            {text}
+          </Typography>
+          {expandable && (
+            <ExpandMoreIcon
+              sx={{
+                fontSize: "1.4rem",
+                color: isCurrent ? "#000000" : "rgba(0, 0, 0, 0.45)",
+                transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+                transition: "transform 0.25s ease, color 0.2s ease",
+              }}
+            />
+          )}
+        </ButtonBase>
+      );
+    };
+
+    return (
+      <Fade in={open} timeout={220} unmountOnExit>
+        <Box
+          role="dialog"
+          aria-modal="true"
+          sx={{
+            position: "fixed",
+            top: `${appbarHeight}px`,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: `calc(100dvh - ${appbarHeight}px)`,
+            width: "100vw",
+            zIndex: (theme) => theme.zIndex.drawer + 1,
+            backgroundColor: "rgba(255, 255, 255, 0.98)",
+            backdropFilter: "blur(12px)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            padding: "1.25rem 1.5rem 1.5rem",
+            boxSizing: "border-box",
+            overflowY: "auto",
+          }}
+        >
+          {/* Main Navigation Links (Thumb-friendly centered layout, no duplicated logo) */}
+          <Box
+            component="nav"
+            sx={{
+              my: "auto",
+              width: "100%",
+              maxWidth: "360px",
+              mx: "auto",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 0.5,
+            }}
+          >
+            <MobileNavButton text={t("project.navigation.home")} path="/" />
+
+            <MobileNavButton
+              text={t("project.navigation.galleries")}
+              action={() => setOpenGallery((prev) => !prev)}
+              active={openGallery || isGalleryActive}
+              expandable
+              expanded={openGallery}
+            />
+
+            <Collapse in={openGallery} sx={{ width: "100%" }}>
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2, 1fr)",
+                  gap: 1,
+                  py: 1,
+                  px: 0.5,
+                }}
+              >
+                {galleryItems.map((item, idx) => {
+                  const isSubCurrent = location.pathname === item.path;
+                  const isLastOdd =
+                    galleryItems.length % 2 === 1 && idx === galleryItems.length - 1;
+
+                  return (
+                    <ButtonBase
+                      key={item.path}
+                      onClick={() => handleNavigate(item.path)}
+                      sx={{
+                        gridColumn: isLastOdd ? "1 / -1" : "auto",
+                        minHeight: "42px",
+                        px: 2,
+                        py: 1,
+                        borderRadius: "8px",
+                        border: isSubCurrent
+                          ? "1px solid #111111"
+                          : "1px solid rgba(0, 0, 0, 0.12)",
+                        backgroundColor: isSubCurrent ? "#111111" : "rgba(0, 0, 0, 0.02)",
+                        color: isSubCurrent ? "#ffffff" : "#222222",
+                        transition: "all 0.2s ease",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: "0.78rem",
+                          fontWeight: 600,
+                          letterSpacing: "1.8px",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {item.text}
+                      </Typography>
+                    </ButtonBase>
+                  );
+                })}
+              </Box>
+            </Collapse>
+
+            <MobileNavButton text={t("project.navigation.aboutme")} path="/sobremi" />
+            <MobileNavButton text={t("project.navigation.trajectory")} path="/trayectoria" />
+            <MobileNavButton text={t("project.navigation.contact")} path="/contacto" />
+          </Box>
+
+          {/* Bottom Footer: Language Selector, Social Links & Copyright */}
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              gap: 1.5,
+              alignItems: "center",
+              pt: 2,
+              borderTop: "1px solid rgba(0, 0, 0, 0.08)",
+            }}
+          >
+            <LanguageSelector />
+
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 1.5 }}>
+              <IconButton
+                size="medium"
+                onClick={() => window.open("https://www.instagram.com/chenchomendoza/", "_blank")}
+                sx={{ color: "#222222" }}
+              >
+                <InstagramIcon fontSize="medium" />
+              </IconButton>
+
+              <IconButton
+                size="medium"
+                href="https://www.flickr.com/photos/chenchomendoza/"
+                target="_blank"
+              >
+                <Icon
+                  fontSize="medium"
+                  sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                >
+                  <img
+                    src={flickrIcon}
+                    style={{ height: "75%", width: "75%", opacity: 0.75 }}
+                    alt="Flickr"
+                  />
+                </Icon>
+              </IconButton>
+
+              <IconButton
+                size="medium"
+                href="https://500px.com/p/chenchomendoza"
+                target="_blank"
+              >
+                <Icon
+                  fontSize="medium"
+                  sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                >
+                  <img
+                    src={pxIcon}
+                    style={{ height: "75%", width: "75%", opacity: 0.75 }}
+                    alt="500px"
+                  />
+                </Icon>
+              </IconButton>
+            </Box>
+
+            <Typography
+              sx={{
+                fontSize: 11,
+                color: "#888888",
+                textAlign: "center",
+              }}
+            >
+              &copy; {new Date().getFullYear()} David García Gondell
+            </Typography>
+          </Box>
+        </Box>
+      </Fade>
+    );
+  }
+
+  // ==================== DESKTOP PERMANENT LEFT SIDEBAR ====================
   const NavItem = ({
     text,
     path,
@@ -98,7 +383,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose, variant, sideba
 
   return (
     <Drawer
-      variant={variant}
+      variant="permanent"
       anchor="left"
       open={open}
       onClose={onClose}
@@ -148,11 +433,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose, variant, sideba
 
         {/* 2. Middle: Navigation Menu (Vertically Centered) */}
         <Box sx={{ my: "auto", py: 2 }}>
-          <List component="nav" sx={{ paddingLeft: variant === "permanent" ? 3.5 : 1.5 }}>
+          <List component="nav" sx={{ paddingLeft: 3.5 }}>
             <NavItem text={t("project.navigation.home")} path="/" />
 
             <NavItem
-              text={openGallery ? t("project.navigation.galleriesOpened") : t("project.navigation.galleriesClosed")}
+              text={
+                openGallery
+                  ? t("project.navigation.galleriesOpened")
+                  : t("project.navigation.galleriesClosed")
+              }
               action={() => setOpenGallery(!openGallery)}
               selected={openGallery || isGalleryActive}
             />
@@ -168,11 +457,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose, variant, sideba
                   }}
                 />
                 <Box sx={{ flexGrow: 1 }}>
-                  <NavItem text={t("project.navigation.landscape")} path="/paisaje" isSubItem />
-                  <NavItem text={t("project.navigation.nature")} path="/naturaleza" isSubItem />
-                  <NavItem text={t("project.navigation.portraits")} path="/retrato" isSubItem />
-                  <NavItem text={t("project.navigation.sports")} path="/deportes" isSubItem />
-                  <NavItem text={t("project.navigation.others")} path="/otros" isSubItem />
+                  {galleryItems.map((item) => (
+                    <NavItem key={item.path} text={item.text} path={item.path} isSubItem />
+                  ))}
                 </Box>
               </Box>
             </Collapse>
@@ -229,7 +516,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose, variant, sideba
                   justifyContent: "center",
                 }}
               >
-                <img src={flickrIcon} style={{ height: "75%", width: "75%", opacity: 0.6 }} alt="Flickr" />
+                <img
+                  src={flickrIcon}
+                  style={{ height: "75%", width: "75%", opacity: 0.6 }}
+                  alt="Flickr"
+                />
               </Icon>
             </IconButton>
 
@@ -250,7 +541,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose, variant, sideba
                   justifyContent: "center",
                 }}
               >
-                <img src={pxIcon} style={{ height: "75%", width: "75%", opacity: 0.6 }} alt="500px" />
+                <img
+                  src={pxIcon}
+                  style={{ height: "75%", width: "75%", opacity: 0.6 }}
+                  alt="500px"
+                />
               </Icon>
             </IconButton>
           </Box>

@@ -18,6 +18,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import { useInterval } from "../../common/hooks/useInterval";
 import { useSwipe } from "../../common/hooks/useSwipe";
+import { ensureImageUrl } from "../services/galleryService";
 import type { ImageItem } from "../../../types";
 
 const slideInFromRight = keyframes`
@@ -97,6 +98,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
     direction: "next" | "prev";
   } | null>(null);
   const [pause, setPause] = useState<boolean>(true); // default paused unless user plays
+  const [, setUrlResolvedTick] = useState<number>(0);
   const [overlayControlsVisible, setOverlayControlsVisible] = useState<boolean>(true);
   const hideOverlayTimerRef = useRef<number | null>(null);
   const outgoingTimerRef = useRef<number | null>(null);
@@ -177,6 +179,34 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
     }
     return clearOverlayTimer;
   }, [open, isOverlayArrows, revealOverlayControls, clearOverlayTimer]);
+
+  // Ensure current, next, and previous image URLs are resolved when Lightbox is open
+  useEffect(() => {
+    if (!open || images.length === 0) return;
+    let active = true;
+
+    const currentItem = images[dialogImageNum] || images[0];
+    const nextItem = images[(dialogImageNum + 1) % images.length];
+    const prevItem = images[(dialogImageNum - 1 + images.length) % images.length];
+
+    if (currentItem && !currentItem.src) {
+      ensureImageUrl(currentItem)
+        .then(() => {
+          if (active) setUrlResolvedTick((n) => n + 1);
+        })
+        .catch(() => {});
+    }
+    if (nextItem && !nextItem.src) {
+      void ensureImageUrl(nextItem).catch(() => {});
+    }
+    if (prevItem && !prevItem.src) {
+      void ensureImageUrl(prevItem).catch(() => {});
+    }
+
+    return () => {
+      active = false;
+    };
+  }, [open, dialogImageNum, images]);
 
   // Lock root html scroll & hide scrollbar while lightbox is open
   useEffect(() => {
