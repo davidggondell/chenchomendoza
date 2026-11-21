@@ -26,6 +26,7 @@ export const es = {
 
   // StartLoader / Splash
   "project.startLoader.title": "CAPTURANDO INSTANTES",
+  "project.startLoader.subtitle": "Chencho Mendoza",
 
   // About Me
   "project.aboutme.title": "José Luis García Mendoza (Chencho Mendoza)",

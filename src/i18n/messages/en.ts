@@ -28,6 +28,7 @@ export const en: Record<MessageKey, string> = {
 
   // StartLoader / Splash
   "project.startLoader.title": "CAPTURING INSTANTS",
+  "project.startLoader.subtitle": "Chencho Mendoza",
 
   // About Me
   "project.aboutme.title": "José Luis García Mendoza (Chencho Mendoza)",

@@ -83,12 +83,7 @@ interface ImageLightboxProps {
   onClose: () => void;
 }
 
-export const ImageLightbox: React.FC<ImageLightboxProps> = ({
-  images,
-  initialIndex,
-  open,
-  onClose,
-}) => {
+export const ImageLightbox: React.FC<ImageLightboxProps> = ({ images, initialIndex, open, onClose }) => {
   const [dialogImageNum, setDialogImageNum] = useState<number>(initialIndex);
   const [transitionDirection, setTransitionDirection] = useState<"next" | "prev" | "none">("none");
   const [outgoingImage, setOutgoingImage] = useState<{
@@ -123,7 +118,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
         duration: 400,
         easing: "cubic-bezier(0.22, 1, 0.36, 1)",
         fill: "none",
-      }
+      },
     );
   };
   const theme = useTheme();
@@ -253,7 +248,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
       setTransitionDirection(direction);
       setDialogImageNum(nextIdx);
     },
-    [images]
+    [images],
   );
 
   const nextImg = useCallback(() => {
@@ -271,7 +266,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
   const handleArrowTouchEnd = (
     e: React.TouchEvent<HTMLButtonElement>,
     action: () => void,
-    rippleEl: HTMLSpanElement | null
+    rippleEl: HTMLSpanElement | null,
   ) => {
     e.currentTarget.blur();
     const startX = buttonTouchStartXRef.current;
@@ -293,7 +288,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
   const handleArrowClick = (
     e: React.MouseEvent<HTMLButtonElement>,
     action: () => void,
-    rippleEl: HTMLSpanElement | null
+    rippleEl: HTMLSpanElement | null,
   ) => {
     e.currentTarget.blur();
     if (Date.now() - lastButtonTouchTimeRef.current < 450) {
@@ -311,7 +306,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
         nextImg();
       }
     },
-    !pause && open ? 6000 : null
+    !pause && open ? 5000 : null,
   );
 
   // Keyboard navigation
@@ -432,9 +427,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: isCompactHeight
-              ? "4px 8px"
-              : { xs: "8px 4px", sm: "16px 20px", md: "24px" },
+            padding: isCompactHeight ? "4px 8px" : { xs: "6px 4px", sm: "10px 16px", md: "12px 20px" },
             boxSizing: "border-box",
           }}
         >
@@ -465,15 +458,11 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
                 WebkitTapHighlightColor: "transparent",
                 overflow: "hidden",
                 color: "#ffffff",
-                backgroundColor: isOverlayArrows
-                  ? "rgba(0, 0, 0, 0.38)"
-                  : "rgba(255, 255, 255, 0.06)",
+                backgroundColor: isOverlayArrows ? "rgba(0, 0, 0, 0.38)" : "rgba(255, 255, 255, 0.06)",
                 zIndex: 5,
                 flexShrink: 0,
                 "&:hover, &:focus, &.Mui-focusVisible, &:active": {
-                  backgroundColor: isOverlayArrows
-                    ? "rgba(0, 0, 0, 0.38)"
-                    : "rgba(255, 255, 255, 0.06)",
+                  backgroundColor: isOverlayArrows ? "rgba(0, 0, 0, 0.38)" : "rgba(255, 255, 255, 0.06)",
                 },
                 ...(isOverlayArrows
                   ? {
@@ -507,9 +496,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
                   pointerEvents: "none",
                 }}
               />
-              <KeyboardArrowLeftIcon
-                fontSize={isOverlayArrows ? "medium" : "large"}
-              />
+              <KeyboardArrowLeftIcon fontSize={isOverlayArrows ? "medium" : "large"} />
             </IconButton>
 
             <Box
@@ -525,7 +512,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                padding: isCompactHeight ? "2px 4px" : { xs: "4px 0", sm: "8px 16px" },
+                padding: isCompactHeight ? "2px 4px" : { xs: "2px 0", sm: "4px 12px" },
                 boxSizing: "border-box",
               }}
             >
@@ -540,10 +527,8 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
                     position: "absolute",
                     maxHeight: isCompactHeight
                       ? "calc(100% - 4px)"
-                      : { xs: "calc(100% - 8px)", sm: "calc(100% - 16px)" },
-                    maxWidth: isCompactHeight
-                      ? "calc(100% - 8px)"
-                      : { xs: "100%", sm: "calc(100% - 32px)" },
+                      : { xs: "calc(100% - 4px)", sm: "calc(100% - 8px)" },
+                    maxWidth: isCompactHeight ? "calc(100% - 8px)" : { xs: "100%", sm: "calc(100% - 24px)" },
                     width: "auto",
                     height: "auto",
                     display: "block",
@@ -551,9 +536,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
                     boxShadow: "0 8px 32px rgba(0, 0, 0, 0.6)",
                     pointerEvents: "none",
                     animation: `${
-                      outgoingImage.direction === "next"
-                        ? slideOutToLeft
-                        : slideOutToRight
+                      outgoingImage.direction === "next" ? slideOutToLeft : slideOutToRight
                     } 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards`,
                   }}
                 />
@@ -598,15 +581,11 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
                 WebkitTapHighlightColor: "transparent",
                 overflow: "hidden",
                 color: "#ffffff",
-                backgroundColor: isOverlayArrows
-                  ? "rgba(0, 0, 0, 0.38)"
-                  : "rgba(255, 255, 255, 0.06)",
+                backgroundColor: isOverlayArrows ? "rgba(0, 0, 0, 0.38)" : "rgba(255, 255, 255, 0.06)",
                 zIndex: 5,
                 flexShrink: 0,
                 "&:hover, &:focus, &.Mui-focusVisible, &:active": {
-                  backgroundColor: isOverlayArrows
-                    ? "rgba(0, 0, 0, 0.38)"
-                    : "rgba(255, 255, 255, 0.06)",
+                  backgroundColor: isOverlayArrows ? "rgba(0, 0, 0, 0.38)" : "rgba(255, 255, 255, 0.06)",
                 },
                 ...(isOverlayArrows
                   ? {
@@ -640,13 +619,11 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
                   pointerEvents: "none",
                 }}
               />
-              <KeyboardArrowRightIcon
-                fontSize={isOverlayArrows ? "medium" : "large"}
-              />
+              <KeyboardArrowRightIcon fontSize={isOverlayArrows ? "medium" : "large"} />
             </IconButton>
           </Box>
 
-          {/* Bottom Bar: Title, Counter & Controls */}
+          {/* Bottom Bar: Title + Counter inline, & Controls */}
           <Box
             sx={{
               flexShrink: 0,
@@ -654,9 +631,9 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
               flexDirection: isCompactHeight ? "row" : "column",
               alignItems: "center",
               justifyContent: isCompactHeight ? "space-between" : "center",
-              gap: isCompactHeight ? 1.5 : { xs: 0.5, sm: 1 },
-              pt: isCompactHeight ? 0.5 : { xs: 0.5, sm: 1 },
-              pb: isCompactHeight ? 0.5 : { xs: 0.5, sm: 1 },
+              gap: isCompactHeight ? 1.5 : { xs: 0.5, sm: 0.75 },
+              pt: isCompactHeight ? 0.25 : 0.5,
+              pb: isCompactHeight ? 0.25 : { xs: 0.25, sm: 0.5 },
               px: isCompactHeight ? 1.5 : 1,
               width: "100%",
               boxSizing: "border-box",
@@ -665,9 +642,12 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
             <Box
               sx={{
                 display: "flex",
-                flexDirection: isCompactHeight ? "row" : "column",
-                alignItems: "center",
-                gap: isCompactHeight ? 1.5 : 0.25,
+                flexDirection: "row",
+                flexWrap: isCompactHeight ? "nowrap" : "wrap",
+                alignItems: "baseline",
+                justifyContent: isCompactHeight ? "flex-start" : "center",
+                columnGap: 1.25,
+                rowGap: 0.25,
                 minWidth: 0,
               }}
             >
@@ -689,9 +669,13 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
 
               <Typography
                 sx={{
-                  color: "rgba(255, 255, 255, 0.5)",
-                  fontSize: "0.8rem",
+                  color: "rgba(255, 255, 255, 0.52)",
+                  fontFamily: "Montserrat",
+                  fontSize: "0.78rem",
+                  fontWeight: 500,
+                  letterSpacing: 0.5,
                   flexShrink: 0,
+                  whiteSpace: "nowrap",
                 }}
               >
                 {dialogImageNum + 1} / {images.length}
@@ -734,19 +718,11 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
                 disableFocusRipple
                 onMouseDown={(e) => e.preventDefault()}
                 onTouchStart={handleArrowTouchStart}
-                onTouchEnd={(e) =>
-                  handleArrowTouchEnd(e, () => setPause((p) => !p), null)
-                }
-                onClick={(e) =>
-                  handleArrowClick(e, () => setPause((p) => !p), null)
-                }
+                onTouchEnd={(e) => handleArrowTouchEnd(e, () => setPause((p) => !p), null)}
+                onClick={(e) => handleArrowClick(e, () => setPause((p) => !p), null)}
                 aria-label={pause ? "Reproducir diapositivas" : "Pausar diapositivas"}
               >
-                {pause ? (
-                  <PlayArrowIcon fontSize="small" />
-                ) : (
-                  <PauseIcon fontSize="small" />
-                )}
+                {pause ? <PlayArrowIcon fontSize="small" /> : <PauseIcon fontSize="small" />}
               </Button>
 
               {isSmallScreen && (

@@ -4,7 +4,6 @@ import bosqueIntro from "../../../assets/images/bosqueIntro.jpg";
 import puestaSolIntro from "../../../assets/images/puestaSolIntro.jpg";
 import menhiresIntro from "../../../assets/images/menhiresIntro.jpg";
 import retratoIntro from "../../../assets/images/retratoIntro.jpg";
-import firmaBlanca from "../../../assets/images/firmaBlanca.png";
 import { useLanguage } from "../../../i18n";
 
 const splashImages = [bosqueIntro, puestaSolIntro, menhiresIntro, retratoIntro];
@@ -48,7 +47,10 @@ export const StartLoader: React.FC = () => {
         const img = new Image();
         img.onload = () => {
           if (typeof img.decode === "function") {
-            img.decode().then(() => resolve()).catch(() => resolve());
+            img
+              .decode()
+              .then(() => resolve())
+              .catch(() => resolve());
           } else {
             resolve();
           }
@@ -64,7 +66,7 @@ export const StartLoader: React.FC = () => {
       });
     };
 
-    Promise.all([preloadAsset(bgImage, true), preloadAsset(firmaBlanca, false)])
+    preloadAsset(bgImage, true)
       .then(() => {
         if (!cancelled) {
           setImageReady(true);
@@ -122,7 +124,7 @@ export const StartLoader: React.FC = () => {
         userSelect: "none",
         WebkitTapHighlightColor: "transparent",
         "&::before": {
-          content: "\"\"",
+          content: '""',
           position: "absolute",
           inset: 0,
           backgroundColor: imageReady ? "rgba(0, 0, 0, 0.35)" : "transparent",
@@ -149,7 +151,6 @@ export const StartLoader: React.FC = () => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            gap: 2,
             pointerEvents: "none",
           }}
         >
@@ -168,20 +169,22 @@ export const StartLoader: React.FC = () => {
             {t("project.startLoader.title")}
           </Typography>
 
-          <Box
-            component="img"
-            src={firmaBlanca}
-            alt="Firma Chencho Mendoza"
-            draggable={false}
+          <Typography
             className="zoom-in-text-start"
             sx={{
-              maxWidth: isSm ? "280px" : "420px",
-              width: "85%",
-              height: "auto",
-              filter: "drop-shadow(0 4px 16px rgba(0, 0, 0, 0.85))",
+              fontFamily: '"Oswald", "Bebas Neue", sans-serif',
+              fontSize: isSm ? 22 : 36,
+              fontWeight: 300,
+              textTransform: "uppercase",
+              color: "#ffffff",
+              textAlign: "center",
+              letterSpacing: isSm ? 2 : 4,
+              textShadow: "0 4px 24px rgba(0, 0, 0, 0.85)",
               pointerEvents: "none",
             }}
-          />
+          >
+            {t("project.startLoader.subtitle")}
+          </Typography>
         </Box>
       )}
     </Box>
